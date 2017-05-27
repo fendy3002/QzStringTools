@@ -43,6 +43,31 @@ var convertInput = function convertInput(src, inputHandlers, config) {
 	}
 };
 
+var convertOutput = function convertOutput(src, outputHandlers, config) {
+	var result = src;
+	for (var i = 0; i < outputHandlers.length; i++) {
+		var outputHandlerStr = outputHandlers[i];
+		var outputHandler = _lodash2.default.filter(config.handler, function (k) {
+			return k.code == outputHandlerStr;
+		})[0];
+
+		console.log("outputHandlerStr", outputHandlerStr);
+		console.log("result", result);
+		result = convertOutputEach(result, outputHandler);
+	}
+	return result;
+};
+
+var convertOutputEach = function convertOutputEach(src, outputHandler) {
+	if (Array.isArray(src[0])) {
+		return _lodash2.default.map(src, function (k) {
+			return convertOutputEach(k, outputHandler);
+		});
+	}
+
+	return handleOutput(src, outputHandler);
+};
+
 var handleInput = function handleInput(srcs, inputHandler) {
 	var result = [];
 	for (var i = 0; i < srcs.length; i++) {
@@ -92,6 +117,7 @@ var trimEnd = function trimEnd(src, key) {
 exports.default = {
 	convert: convert,
 	convertInput: convertInput,
+	convertOutput: convertOutput,
 	handleInput: handleInput,
 	handleOutput: handleOutput,
 	trimEnd: trimEnd,

@@ -26,6 +26,26 @@ var convertInput = function(src, inputHandlers, config){
 	}
 };
 
+var convertOutput = function(src, outputHandlers, config){
+	var result = src;
+	for(var i = 0; i < outputHandlers.length; i++){
+		var outputHandlerStr = outputHandlers[i];
+		var outputHandler = lo.filter(config.handler, k=> k.code == outputHandlerStr)[0];
+
+		//console.log("outputHandlerStr", outputHandlerStr);
+		//console.log("result", result);
+		result = convertOutputEach(result, outputHandler);
+	}
+	return result;
+};
+
+var convertOutputEach = function(src, outputHandler){
+	if(Array.isArray(src[0])){
+		return lo.map(src, k => convertOutputEach(k, outputHandler));
+	}
+	return handleOutput(src, outputHandler);
+};
+
 var handleInput = function(srcs, inputHandler){
 	var result = [];
 	for(var i = 0; i < srcs.length; i++){
@@ -77,6 +97,7 @@ var trimEnd = function(src, key){
 export default {
 	convert: convert,
 	convertInput: convertInput,
+	convertOutput: convertOutput,
 	handleInput: handleInput,
 	handleOutput: handleOutput,
 	trimEnd: trimEnd,

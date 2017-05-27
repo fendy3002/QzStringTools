@@ -1,17 +1,16 @@
 export default {
 	"handler" : [
 		{
+			"code": "space-delimiter",
+			"name": "Space delimiter",
+			"type": "delimiter",
+			"delimiter": " "
+		},
+		{
 			"code": "newline",
 			"name": "Newline delimiter",
 			"type": "delimiter",
 			"delimiter": "\n"
-		},
-		{
-			"code": "single-quote",
-			"name": "Single quote surround",
-			"type": "surround",
-			"start": "'",
-			"end": "'"
 		},
 		{
 			"code": "comma",
@@ -37,6 +36,21 @@ export default {
 			"type": "delimiter",
 			"delimiter": "||"
 		},
+
+		{
+			"code": "single-quote",
+			"name": "Single quote surround",
+			"type": "surround",
+			"start": "'",
+			"end": "'"
+		},
+		{
+			"code": "space-surround",
+			"name": "Space delimiter",
+			"type": "surround",
+			"start": " ",
+			"end": " "
+		},
 		{
 			"code": "sql-drop-table",
 			"name": "SQL drop table",
@@ -53,7 +67,7 @@ export default {
 			},
 			"handlers": {
 				"input" : ['newline', 'comma'],
-				"output" : ['newline', 'single-quote', 'comma']
+				"output" : ['comma', 'single-quote', 'newline']
 			}
 		}
 	]
