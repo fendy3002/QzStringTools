@@ -20,14 +20,7 @@ var convert = function convert(src, selectedConfig) {
 	var useConfig = config || _config2.default;
 	var inputHandlers = selectedConfig.handlers.input;
 
-	var result = [src];
-	for (var i = 0; i < inputHandlers.length; i++) {
-		var inputHandlerStr = inputHandlers[i];
-		var inputHandler = _lodash2.default.filter(useConfig.handler, function (k) {
-			return k.code == inputHandlerStr;
-		})[0];
-		var eachResult = handleString(result, inputHandler);
-	}
+	var inputResult = convertInput(src, inputHandlers, config);
 };
 
 var convertInput = function convertInput(src, inputHandlers, config) {
@@ -70,6 +63,16 @@ var handleInput = function handleInput(srcs, inputHandler) {
 	return result;
 };
 
+var handleOutput = function handleOutput(srcs, outputHandler) {
+	if (outputHandler.type == "delimiter") {
+		return srcs.join(outputHandler.delimiter);
+	} else if (outputHandler.type == "surround") {
+		return _lodash2.default.map(srcs, function (k) {
+			return outputHandler.start + k + outputHandler.end;
+		});
+	}
+};
+
 var trimStart = function trimStart(src, key) {
 	if (src.startsWith(key)) {
 		return src.substring(key.length);
@@ -90,6 +93,7 @@ exports.default = {
 	convert: convert,
 	convertInput: convertInput,
 	handleInput: handleInput,
+	handleOutput: handleOutput,
 	trimEnd: trimEnd,
 	trimStart: trimStart
 };

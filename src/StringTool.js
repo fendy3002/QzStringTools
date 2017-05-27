@@ -5,13 +5,8 @@ var convert = function(src, selectedConfig, config = {}){
 	var useConfig = config || defaultConfig;
 	var inputHandlers = selectedConfig.handlers.input;
 
-	var result = [src];
-	for(var i = 0; i < inputHandlers.length; i++){
-		var inputHandlerStr = inputHandlers[i];
-		var inputHandler = lo.filter(useConfig.handler, k=> k.code == inputHandlerStr)[0];
-		var eachResult = handleString(result, inputHandler);
+	var inputResult = convertInput(src, inputHandlers, config);
 
-	}
 };
 
 var convertInput = function(src, inputHandlers, config){
@@ -52,6 +47,15 @@ var handleInput = function(srcs, inputHandler){
 	return result;
 };
 
+var handleOutput = function(srcs, outputHandler){
+	if(outputHandler.type == "delimiter"){
+		return srcs.join(outputHandler.delimiter);
+	}
+	else if(outputHandler.type =="surround"){
+		return lo.map(srcs, k=> outputHandler.start + k + outputHandler.end);
+	}
+};
+
 var trimStart = function(src, key){
 	if(src.startsWith(key)){
 		return src.substring(key.length);
@@ -74,6 +78,7 @@ export default {
 	convert: convert,
 	convertInput: convertInput,
 	handleInput: handleInput,
+	handleOutput: handleOutput,
 	trimEnd: trimEnd,
 	trimStart: trimStart
 };
