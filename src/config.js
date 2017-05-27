@@ -1,7 +1,7 @@
 export default {
 	"handler" : [
 		{
-			"code": "space-delimiter",
+			"code": "_space",
 			"name": "Space delimiter",
 			"type": "delimiter",
 			"delimiter": " "
@@ -45,10 +45,17 @@ export default {
 			"end": "'"
 		},
 		{
-			"code": "space-surround",
+			"code": "aspace",
 			"name": "Space delimiter",
 			"type": "surround",
 			"start": " ",
+			"end": ""
+		},
+		{
+			"code": "zspace",
+			"name": "Space delimiter",
+			"type": "surround",
+			"start": "",
 			"end": " "
 		},
 		{

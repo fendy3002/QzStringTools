@@ -19,8 +19,12 @@ var convert = function convert(src, selectedConfig) {
 
 	var useConfig = config || _config2.default;
 	var inputHandlers = selectedConfig.handlers.input;
+	var outputHandlers = selectedConfig.handlers.output;
 
-	var inputResult = convertInput(src, inputHandlers, config);
+	var inputResult = convertInput([src], inputHandlers, config);
+	var outputResult = convertOutput(inputResult, outputHandlers, config);
+
+	return outputResult[0];
 };
 
 var convertInput = function convertInput(src, inputHandlers, config) {
@@ -51,8 +55,8 @@ var convertOutput = function convertOutput(src, outputHandlers, config) {
 			return k.code == outputHandlerStr;
 		})[0];
 
-		console.log("outputHandlerStr", outputHandlerStr);
-		console.log("result", result);
+		//console.log("outputHandlerStr", outputHandlerStr);
+		//console.log("result", result);
 		result = convertOutputEach(result, outputHandler);
 	}
 	return result;
@@ -64,7 +68,6 @@ var convertOutputEach = function convertOutputEach(src, outputHandler) {
 			return convertOutputEach(k, outputHandler);
 		});
 	}
-
 	return handleOutput(src, outputHandler);
 };
 

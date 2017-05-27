@@ -4,9 +4,12 @@ import defaultConfig from './config.js';
 var convert = function(src, selectedConfig, config = {}){
 	var useConfig = config || defaultConfig;
 	var inputHandlers = selectedConfig.handlers.input;
+	var outputHandlers = selectedConfig.handlers.output;
 
-	var inputResult = convertInput(src, inputHandlers, config);
+	var inputResult = convertInput([src], inputHandlers, config);
+	var outputResult = convertOutput(inputResult, outputHandlers, config);
 
+	return outputResult[0];
 };
 
 var convertInput = function(src, inputHandlers, config){

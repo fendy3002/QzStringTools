@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = {
 	"handler": [{
-		"code": "space-delimiter",
+		"code": "_space",
 		"name": "Space delimiter",
 		"type": "delimiter",
 		"delimiter": " "
@@ -41,10 +41,16 @@ exports.default = {
 		"start": "'",
 		"end": "'"
 	}, {
-		"code": "space-surround",
+		"code": "aspace",
 		"name": "Space delimiter",
 		"type": "surround",
 		"start": " ",
+		"end": ""
+	}, {
+		"code": "zspace",
+		"name": "Space delimiter",
+		"type": "surround",
+		"start": "",
 		"end": " "
 	}, {
 		"code": "sql-drop-table",
