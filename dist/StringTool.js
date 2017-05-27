@@ -30,13 +30,33 @@ var convert = function convert(src, selectedConfig) {
 	}
 };
 
-var handleString = function handleString(srcs, inputHandler) {
+var convertInput = function convertInput(src, inputHandlers, config) {
+	var inputHandlerStr = inputHandlers[0];
+	var inputHandler = _lodash2.default.filter(config.handler, function (k) {
+		return k.code == inputHandlerStr;
+	})[0];
+	var eachResult = handleInput(src, inputHandler);
+
+	if (inputHandlers.length == 1) {
+		return eachResult;
+	}
+	var nextHandlers = inputHandlers.slice(1);
+	if (inputHandler.type == "delimiter") {
+		return _lodash2.default.map(eachResult, function (k) {
+			return convertInput(k, nextHandlers, config);
+		});
+	} else if (inputHandler.type == "surround") {
+		return convertInput(eachResult, nextHandlers, config);
+	}
+};
+
+var handleInput = function handleInput(srcs, inputHandler) {
 	var result = [];
 	for (var i = 0; i < srcs.length; i++) {
 		var src = srcs[i];
 		if (inputHandler.type == "delimiter") {
 			result.push(src.split(inputHandler.delimiter));
-		} else {
+		} else if (inputHandler.type == "surround") {
 			var each = src;
 			if (inputHandler.start) {
 				each = trimStart(each, inputHandler.start);
@@ -68,7 +88,8 @@ var trimEnd = function trimEnd(src, key) {
 
 exports.default = {
 	convert: convert,
-	handleString: handleString,
+	convertInput: convertInput,
+	handleInput: handleInput,
 	trimEnd: trimEnd,
 	trimStart: trimStart
 };

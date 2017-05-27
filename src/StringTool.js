@@ -14,14 +14,31 @@ var convert = function(src, selectedConfig, config = {}){
 	}
 };
 
-var handleString = function(srcs, inputHandler){
+var convertInput = function(src, inputHandlers, config){
+	var inputHandlerStr = inputHandlers[0];
+	var inputHandler = lo.filter(config.handler, k=> k.code == inputHandlerStr)[0];
+	var eachResult = handleInput(src, inputHandler);
+
+	if(inputHandlers.length == 1){
+		return eachResult;
+	}
+	var nextHandlers = inputHandlers.slice(1);
+	if(inputHandler.type == "delimiter"){
+		return lo.map(eachResult, k => convertInput(k, nextHandlers, config));
+	}
+	else if(inputHandler.type == "surround"){
+		return convertInput(eachResult, nextHandlers, config);
+	}
+};
+
+var handleInput = function(srcs, inputHandler){
 	var result = [];
 	for(var i = 0; i < srcs.length; i++){
 		var src = srcs[i];
 		if(inputHandler.type == "delimiter"){
 			result.push(src.split(inputHandler.delimiter));
 		}
-		else{
+		else if(inputHandler.type =="surround"){
 			var each = src;
 			if(inputHandler.start){
 				each = trimStart(each, inputHandler.start);
@@ -55,7 +72,8 @@ var trimEnd = function(src, key){
 
 export default {
 	convert: convert,
-	handleString: handleString,
+	convertInput: convertInput,
+	handleInput: handleInput,
 	trimEnd: trimEnd,
 	trimStart: trimStart
 };

@@ -20,6 +20,24 @@ export default {
 			"delimiter": ","
 		},
 		{
+			"code": "semicolon",
+			"name": "Semicolon delimiter",
+			"type": "delimiter",
+			"delimiter": ";"
+		},
+		{
+			"code": "pipe",
+			"name": "Pipe delimiter",
+			"type": "delimiter",
+			"delimiter": "|"
+		},
+		{
+			"code": "double-pipe",
+			"name": "Double pipe delimiter",
+			"type": "delimiter",
+			"delimiter": "||"
+		},
+		{
 			"code": "sql-drop-table",
 			"name": "SQL drop table",
 			"type": "surround",
