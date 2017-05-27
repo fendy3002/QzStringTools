@@ -1,0 +1,2 @@
+# QzStringTools
+String manipulation tools
