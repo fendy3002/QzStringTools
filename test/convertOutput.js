@@ -1,5 +1,5 @@
 var assert = require('assert');
-var stringTool = require('../dist/stringTool.js').default;
+var stringTool = require('../dist/StringTool.js').default;
 var config = require('../dist/config.js').default;
 
 describe('StringTool', function() {
@@ -20,7 +20,7 @@ describe('StringTool', function() {
 					]
 				]
 			];
-			var handler = ['comma', 'semicolon', 'pipe'];
+			var handler = ['_comma', '_semicolon', '_pipe'];
 			var expected = ["Hello, world; How, are, you? | How, many; of, you, are, there?"];
 
 			var result = stringTool.convertOutput(src, handler, config);

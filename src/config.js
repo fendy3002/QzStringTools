@@ -13,64 +13,65 @@ export default {
 			"delimiter": "\t"
 		},
 		{
-			"code": "newline",
+			"code": "_newline",
 			"name": "Newline delimiter",
 			"type": "delimiter",
 			"delimiter": "\n"
 		},
 		{
-			"code": "comma",
+			"code": "_comma",
 			"name": "Comma delimiter",
 			"type": "delimiter",
 			"delimiter": ","
 		},
 		{
-			"code": "semicolon",
+			"code": "_semicolon",
 			"name": "Semicolon delimiter",
 			"type": "delimiter",
 			"delimiter": ";"
 		},
 		{
-			"code": "pipe",
+			"code": "_pipe",
 			"name": "Pipe delimiter",
 			"type": "delimiter",
 			"delimiter": "|"
 		},
 		{
-			"code": "double-pipe",
+			"code": "_double-pipe",
 			"name": "Double pipe delimiter",
 			"type": "delimiter",
 			"delimiter": "||"
 		},
 		{
-			"code": "php-object",
-			"name": "PHP object prefix",
-			"type": "surround",
-			"start": "$*->",
-			"end": ""
-		},
-		{
-			"code": "php-array-arrow",
+			"code": "_php-array-arrow",
 			"name": "PHP array arrow",
 			"type": "delimiter",
 			"delimiter": "=>"
 		},
 		{
-			"code": "equal-delimiter",
+			"code": "_equal",
 			"name": "Equal sign delimiter",
 			"type": "delimiter",
 			"delimiter": "="
 		},
 
 		{
-			"code": "single-quote",
+			"code": "aphp-object",
+			"name": "PHP object prefix",
+			"type": "surround",
+			"start": "$*->",
+			"end": ""
+		},
+
+		{
+			"code": "azsingle-quote",
 			"name": "Single quote surround",
 			"type": "surround",
 			"start": "'",
 			"end": "'"
 		},
 		{
-			"code": "double-quote",
+			"code": "azdouble-quote",
 			"name": "Double quote surround",
 			"type": "surround",
 			"start": '"',
@@ -133,7 +134,7 @@ export default {
 			"end": "\t"
 		},
 		{
-			"code": "sql-drop-table",
+			"code": "azsql-drop-table",
 			"name": "SQL drop table",
 			"type": "surround",
 			"start": "drop table ",
@@ -148,8 +149,8 @@ export default {
 				"output": "single quote comma newline"
 			},
 			"handlers": {
-				"input" : ['newline', 'comma'],
-				"output" : ['comma', 'single-quote', 'newline']
+				"input" : ['_newline', '_comma'],
+				"output" : ['_comma', 'azsingle-quote', '_newline']
 			}
 		},
 		{
@@ -159,8 +160,8 @@ export default {
 				"output": "PHP object"
 			},
 			"handlers": {
-				"input" : ['newline', 'zcomma', 'atab', 'php-array-arrow', 'zspace', 'double-quote'],
-				"output" : ['equal-delimiter', 'php-object', 'zsemicolon', 'newline']
+				"input" : ['_newline', 'zcomma', 'atab', '_php-array-arrow', 'zspace', 'aspace', 'azdouble-quote'],
+				"output" : [['_equal', 'aspace', 'zspace'], 'aphp-object', 'zsemicolon', 'atab', 'atab', '_newline']
 			}
 		}
 	]

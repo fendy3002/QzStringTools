@@ -15,9 +15,6 @@ var convert = function(src, selectedConfig, config = {}){
 var convertInput = function(src, inputHandlers, config){
 	var currentInputHandler = inputHandlers[0];
 	var inputHandler = getHandler(currentInputHandler, config);
-	if(!inputHandler){
-		throw new Error('Handle ' + inputHandlerStr + ' not found');
-	}
 	var eachResult = handleInput(src, inputHandler);
 
 	if(inputHandlers.length == 1){
@@ -37,10 +34,6 @@ var convertOutput = function(src, outputHandlers, config){
 	for(var i = 0; i < outputHandlers.length; i++){
 		var currentHandler = outputHandlers[i];
 		var outputHandler = getHandler(currentHandler, config);
-
-		if(!outputHandler){
-			throw new Error('Handle ' + outputHandlerStr + ' not found');
-		}
 		//console.log("outputHandlerStr", outputHandlerStr);
 		//console.log("result", result);
 		result = convertOutputEach(result, outputHandler);
@@ -89,7 +82,13 @@ var getHandler = function(currentInputHandler, config){
 	var inputHandler = null;
 	if(Array.isArray(currentInputHandler)){
 		var currentInputHandlers = lo.map(currentInputHandler,
-			l => lo.filter(config.handler, k=> k.code == l)[0]);
+			l => {
+				var returnHandler = lo.filter(config.handler, k=> k.code == l)[0];
+				if(!returnHandler){
+					throw new Error('Handle ' + l + ' not found');
+				}
+				return returnHandler
+			});
 		var currentDelimiter = lo.filter(currentInputHandlers, k => k.type == "delimiter")[0];
 		for(var i = 0; i < currentInputHandlers.length; i++){
 			var eachDelimiter = currentInputHandlers[i];
@@ -103,6 +102,9 @@ var getHandler = function(currentInputHandler, config){
 	}
 	else{
 		inputHandler = lo.filter(config.handler, k=> k.code == currentInputHandler)[0];
+		if(!inputHandler){
+			throw new Error('Handle ' + currentInputHandler + ' not found');
+		}
 	}
 	return inputHandler;
 };

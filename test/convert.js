@@ -8,8 +8,8 @@ describe('StringTool', function() {
 			var src = "Hello, world; How, are, you? | How, many; of, you, are, there?";
 			var selectedConfig = {
 				handlers:{
-					input: ['pipe', 'semicolon', 'comma', 'aspace', 'zspace'],
-					output: ['pipe', 'aspace', 'comma', 'semicolon']
+					input: ['_pipe', '_semicolon', '_comma', 'aspace', 'zspace'],
+					output: ['_pipe', 'aspace', '_comma', '_semicolon']
 				}
 			};
 			var expected = " Hello|world, How|are|you?; How|many, of|you|are|there?";
@@ -26,8 +26,8 @@ describe('StringTool', function() {
 				"c" => $c';
 			var selectedConfig = {
 				handlers:{
-					"input" : ['newline', 'zcomma', 'atab', 'php-array-arrow', 'zspace', 'aspace', 'double-quote'],
-					"output" : [['equal-delimiter', 'aspace', 'zspace'], 'php-object', 'zsemicolon', 'atab', 'atab', 'newline']
+					"input" : ['_newline', 'zcomma', 'atab', '_php-array-arrow', 'zspace', 'aspace', 'azdouble-quote'],
+					"output" : [['_equal', 'aspace', 'zspace'], 'aphp-object', 'zsemicolon', 'atab', 'atab', '_newline']
 				}
 			};
 			var expected = '\

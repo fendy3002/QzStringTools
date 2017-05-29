@@ -30,9 +30,6 @@ var convert = function convert(src, selectedConfig) {
 var convertInput = function convertInput(src, inputHandlers, config) {
 	var currentInputHandler = inputHandlers[0];
 	var inputHandler = getHandler(currentInputHandler, config);
-	if (!inputHandler) {
-		throw new Error('Handle ' + inputHandlerStr + ' not found');
-	}
 	var eachResult = handleInput(src, inputHandler);
 
 	if (inputHandlers.length == 1) {
@@ -53,10 +50,6 @@ var convertOutput = function convertOutput(src, outputHandlers, config) {
 	for (var i = 0; i < outputHandlers.length; i++) {
 		var currentHandler = outputHandlers[i];
 		var outputHandler = getHandler(currentHandler, config);
-
-		if (!outputHandler) {
-			throw new Error('Handle ' + outputHandlerStr + ' not found');
-		}
 		//console.log("outputHandlerStr", outputHandlerStr);
 		//console.log("result", result);
 		result = convertOutputEach(result, outputHandler);
@@ -107,9 +100,13 @@ var getHandler = function getHandler(currentInputHandler, config) {
 	var inputHandler = null;
 	if (Array.isArray(currentInputHandler)) {
 		var currentInputHandlers = _lodash2.default.map(currentInputHandler, function (l) {
-			return _lodash2.default.filter(config.handler, function (k) {
+			var returnHandler = _lodash2.default.filter(config.handler, function (k) {
 				return k.code == l;
 			})[0];
+			if (!returnHandler) {
+				throw new Error('Handle ' + l + ' not found');
+			}
+			return returnHandler;
 		});
 		var currentDelimiter = _lodash2.default.filter(currentInputHandlers, function (k) {
 			return k.type == "delimiter";
@@ -127,6 +124,9 @@ var getHandler = function getHandler(currentInputHandler, config) {
 		inputHandler = _lodash2.default.filter(config.handler, function (k) {
 			return k.code == currentInputHandler;
 		})[0];
+		if (!inputHandler) {
+			throw new Error('Handle ' + currentInputHandler + ' not found');
+		}
 	}
 	return inputHandler;
 };

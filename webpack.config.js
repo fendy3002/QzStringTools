@@ -1,9 +1,9 @@
 module.exports = {
     entry: {
-        app: './public/js/app/index.js'
+        app: './server/public/js/app/index.js'
     },
     output: {
-        path: './public/js/bin/',
+        path: './server/public/js/bin/',
         filename: '[name].js'
     },
     module: {

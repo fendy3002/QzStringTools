@@ -1,5 +1,5 @@
 var assert = require('assert');
-var stringTool = require('../dist/stringTool.js').default;
+var stringTool = require('../dist/StringTool.js').default;
 
 describe('StringTool', function() {
   describe('trimStart', function() {

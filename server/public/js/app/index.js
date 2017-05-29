@@ -8,8 +8,10 @@ import QzReactReduxHashState from '@fendy3002/react-redux-hash-state';
 import sa from 'superagent';
 import App from './stringTools/components/App.js';
 import reducer from './stringTools/reducers';
+import defaultConfig from '../../../../src/config.js';
 
 var renderPage = function(initialState){
+    console.log(defaultConfig);
     var state = {
         stringToolsConfig: [],
         filter: Object.assign({

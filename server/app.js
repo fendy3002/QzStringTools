@@ -2,7 +2,7 @@ var express = require('express')
 var app = express();
 import fs from 'fs';
 
-app.use('/public', express.static('src/tests/public'));
+app.use('/public', express.static(__dirname + '/public'));
 
 app.get('/', function (req, res) {
     fs.readFile('server/views/index.html',function (err, data){

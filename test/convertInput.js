@@ -1,12 +1,12 @@
 var assert = require('assert');
-var stringTool = require('../dist/stringTool.js').default;
+var stringTool = require('../dist/StringTool.js').default;
 var config = require('../dist/config.js').default;
 
 describe('StringTool', function() {
 	describe('convertInput', function() {
 		it('should output same structure with expected', function() {
 			var src = ["Hello, world; How, are, you? | How, many; of, you, are, there?"];
-			var handler = ['pipe', 'semicolon', 'comma'];
+			var handler = ['_pipe', '_semicolon', '_comma'];
 			var expected = [
 				//by pipe
 				[
