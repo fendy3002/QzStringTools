@@ -28,10 +28,11 @@ var convert = function convert(src, selectedConfig) {
 };
 
 var convertInput = function convertInput(src, inputHandlers, config) {
-	var inputHandlerStr = inputHandlers[0];
-	var inputHandler = _lodash2.default.filter(config.handler, function (k) {
-		return k.code == inputHandlerStr;
-	})[0];
+	var currentInputHandler = inputHandlers[0];
+	var inputHandler = getHandler(currentInputHandler, config);
+	if (!inputHandler) {
+		throw new Error('Handle ' + inputHandlerStr + ' not found');
+	}
 	var eachResult = handleInput(src, inputHandler);
 
 	if (inputHandlers.length == 1) {
@@ -50,11 +51,12 @@ var convertInput = function convertInput(src, inputHandlers, config) {
 var convertOutput = function convertOutput(src, outputHandlers, config) {
 	var result = src;
 	for (var i = 0; i < outputHandlers.length; i++) {
-		var outputHandlerStr = outputHandlers[i];
-		var outputHandler = _lodash2.default.filter(config.handler, function (k) {
-			return k.code == outputHandlerStr;
-		})[0];
+		var currentHandler = outputHandlers[i];
+		var outputHandler = getHandler(currentHandler, config);
 
+		if (!outputHandler) {
+			throw new Error('Handle ' + outputHandlerStr + ' not found');
+		}
 		//console.log("outputHandlerStr", outputHandlerStr);
 		//console.log("result", result);
 		result = convertOutputEach(result, outputHandler);
@@ -101,9 +103,38 @@ var handleOutput = function handleOutput(srcs, outputHandler) {
 	}
 };
 
+var getHandler = function getHandler(currentInputHandler, config) {
+	var inputHandler = null;
+	if (Array.isArray(currentInputHandler)) {
+		var currentInputHandlers = _lodash2.default.map(currentInputHandler, function (l) {
+			return _lodash2.default.filter(config.handler, function (k) {
+				return k.code == l;
+			})[0];
+		});
+		var currentDelimiter = _lodash2.default.filter(currentInputHandlers, function (k) {
+			return k.type == "delimiter";
+		})[0];
+		for (var i = 0; i < currentInputHandlers.length; i++) {
+			var eachDelimiter = currentInputHandlers[i];
+			if (eachDelimiter.type == 'delimiter') {
+				continue;
+			} else {
+				currentDelimiter.delimiter = eachDelimiter.start + currentDelimiter.delimiter + eachDelimiter.end;
+			}
+		}
+		inputHandler = currentDelimiter;
+	} else {
+		inputHandler = _lodash2.default.filter(config.handler, function (k) {
+			return k.code == currentInputHandler;
+		})[0];
+	}
+	return inputHandler;
+};
+
 var trimStart = function trimStart(src, key) {
 	if (src.startsWith(key)) {
-		return src.substring(key.length);
+		var result = src.substring(key.length);
+		return trimStart(result, key);
 	} else {
 		return src;
 	}
@@ -111,7 +142,8 @@ var trimStart = function trimStart(src, key) {
 
 var trimEnd = function trimEnd(src, key) {
 	if (src.endsWith(key)) {
-		return src.substring(0, src.length - key.length);
+		var result = src.substring(0, src.length - key.length);
+		return trimEnd(result, key);
 	} else {
 		return src;
 	}

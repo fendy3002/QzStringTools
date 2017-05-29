@@ -13,8 +13,11 @@ var convert = function(src, selectedConfig, config = {}){
 };
 
 var convertInput = function(src, inputHandlers, config){
-	var inputHandlerStr = inputHandlers[0];
-	var inputHandler = lo.filter(config.handler, k=> k.code == inputHandlerStr)[0];
+	var currentInputHandler = inputHandlers[0];
+	var inputHandler = getHandler(currentInputHandler, config);
+	if(!inputHandler){
+		throw new Error('Handle ' + inputHandlerStr + ' not found');
+	}
 	var eachResult = handleInput(src, inputHandler);
 
 	if(inputHandlers.length == 1){
@@ -32,9 +35,12 @@ var convertInput = function(src, inputHandlers, config){
 var convertOutput = function(src, outputHandlers, config){
 	var result = src;
 	for(var i = 0; i < outputHandlers.length; i++){
-		var outputHandlerStr = outputHandlers[i];
-		var outputHandler = lo.filter(config.handler, k=> k.code == outputHandlerStr)[0];
+		var currentHandler = outputHandlers[i];
+		var outputHandler = getHandler(currentHandler, config);
 
+		if(!outputHandler){
+			throw new Error('Handle ' + outputHandlerStr + ' not found');
+		}
 		//console.log("outputHandlerStr", outputHandlerStr);
 		//console.log("result", result);
 		result = convertOutputEach(result, outputHandler);
@@ -79,9 +85,32 @@ var handleOutput = function(srcs, outputHandler){
 	}
 };
 
+var getHandler = function(currentInputHandler, config){
+	var inputHandler = null;
+	if(Array.isArray(currentInputHandler)){
+		var currentInputHandlers = lo.map(currentInputHandler,
+			l => lo.filter(config.handler, k=> k.code == l)[0]);
+		var currentDelimiter = lo.filter(currentInputHandlers, k => k.type == "delimiter")[0];
+		for(var i = 0; i < currentInputHandlers.length; i++){
+			var eachDelimiter = currentInputHandlers[i];
+			if(eachDelimiter.type == 'delimiter'){ continue; }
+			else{
+				currentDelimiter.delimiter =
+					eachDelimiter.start + currentDelimiter.delimiter + eachDelimiter.end;
+			}
+		}
+		inputHandler = currentDelimiter;
+	}
+	else{
+		inputHandler = lo.filter(config.handler, k=> k.code == currentInputHandler)[0];
+	}
+	return inputHandler;
+};
+
 var trimStart = function(src, key){
 	if(src.startsWith(key)){
-		return src.substring(key.length);
+		var result = src.substring(key.length);
+		return trimStart(result, key);
 	}
 	else{
 		return src;
@@ -90,7 +119,8 @@ var trimStart = function(src, key){
 
 var trimEnd = function(src, key){
 	if(src.endsWith(key)){
-		return src.substring(0, src.length - key.length);
+		var result = src.substring(0, src.length - key.length);
+		return trimEnd(result, key);
 	}
 	else{
 		return src;

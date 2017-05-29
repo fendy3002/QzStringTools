@@ -7,6 +7,12 @@ export default {
 			"delimiter": " "
 		},
 		{
+			"code": "_tab",
+			"name": "Tab delimiter",
+			"type": "delimiter",
+			"delimiter": "\t"
+		},
+		{
 			"code": "newline",
 			"name": "Newline delimiter",
 			"type": "delimiter",
@@ -36,6 +42,25 @@ export default {
 			"type": "delimiter",
 			"delimiter": "||"
 		},
+		{
+			"code": "php-object",
+			"name": "PHP object prefix",
+			"type": "surround",
+			"start": "$*->",
+			"end": ""
+		},
+		{
+			"code": "php-array-arrow",
+			"name": "PHP array arrow",
+			"type": "delimiter",
+			"delimiter": "=>"
+		},
+		{
+			"code": "equal-delimiter",
+			"name": "Equal sign delimiter",
+			"type": "delimiter",
+			"delimiter": "="
+		},
 
 		{
 			"code": "single-quote",
@@ -43,6 +68,13 @@ export default {
 			"type": "surround",
 			"start": "'",
 			"end": "'"
+		},
+		{
+			"code": "double-quote",
+			"name": "Double quote surround",
+			"type": "surround",
+			"start": '"',
+			"end": '"'
 		},
 		{
 			"code": "aspace",
@@ -59,6 +91,48 @@ export default {
 			"end": " "
 		},
 		{
+			"code": "zcomma",
+			"name": "Comma end",
+			"type": "surround",
+			"start": "",
+			"end": ","
+		},
+		{
+			"code": "acomma",
+			"name": "Comma start",
+			"type": "surround",
+			"start": ",",
+			"end": ""
+		},
+		{
+			"code": "zsemicolon",
+			"name": "Semicolon end",
+			"type": "surround",
+			"start": "",
+			"end": ";"
+		},
+		{
+			"code": "asemicolon",
+			"name": "Semicolon start",
+			"type": "surround",
+			"start": ";",
+			"end": ""
+		},
+		{
+			"code": "atab",
+			"name": "Tab start",
+			"type": "surround",
+			"start": "\t",
+			"end": ""
+		},
+		{
+			"code": "ztab",
+			"name": "Tab end",
+			"type": "surround",
+			"start": "",
+			"end": "\t"
+		},
+		{
 			"code": "sql-drop-table",
 			"name": "SQL drop table",
 			"type": "surround",
@@ -68,6 +142,7 @@ export default {
 	],
 	"combination" : [
 		{
+			"code": "1",
 			"name": {
 				"input": "newline comma",
 				"output": "single quote comma newline"
@@ -75,6 +150,17 @@ export default {
 			"handlers": {
 				"input" : ['newline', 'comma'],
 				"output" : ['comma', 'single-quote', 'newline']
+			}
+		},
+		{
+			"code": "php-array-to-object",
+			"name": {
+				"input": "PHP Array",
+				"output": "PHP object"
+			},
+			"handlers": {
+				"input" : ['newline', 'zcomma', 'atab', 'php-array-arrow', 'zspace', 'double-quote'],
+				"output" : ['equal-delimiter', 'php-object', 'zsemicolon', 'newline']
 			}
 		}
 	]
