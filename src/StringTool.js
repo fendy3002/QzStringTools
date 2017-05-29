@@ -129,6 +129,20 @@ var trimEnd = function(src, key){
 	}
 };
 
+var toPrintable = function(src){
+	return src.replace("\t", "\\t")
+		.replace("\n", "\\n");
+
+	/*replace(/\\n/g, "\\n")
+       .replace(/\\'/g, "\\'")
+       .replace(/\\"/g, '\\"')
+       .replace(/\\&/g, "\\&")
+       .replace(/\\r/g, "\\r")
+       .replace(/\\t/g, "\\t")
+       .replace(/\\b/g, "\\b")
+       .replace(/\\f/g, "\\f");*/
+};
+
 export default {
 	convert: convert,
 	convertInput: convertInput,
@@ -136,5 +150,6 @@ export default {
 	handleInput: handleInput,
 	handleOutput: handleOutput,
 	trimEnd: trimEnd,
-	trimStart: trimStart
+	trimStart: trimStart,
+	toPrintable: toPrintable
 };

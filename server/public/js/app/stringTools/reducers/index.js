@@ -1,8 +1,8 @@
 var { combineReducers } = require('redux');
-//var filter = require('./filter.js');
+var config = require('./config.js');
 
 var app = combineReducers({
-    filter: {}
+    config: config
 });
 
 module.exports = app;

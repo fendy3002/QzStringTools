@@ -13,15 +13,7 @@ import defaultConfig from '../../../../src/config.js';
 var renderPage = function(initialState){
     console.log(defaultConfig);
     var state = {
-        stringToolsConfig: [],
-        filter: Object.assign({
-            limit: 20,
-            country: null,
-            name: null,
-            uuid: null,
-            page: 0,
-            openUuid: null
-        }, QzReactReduxHashState.getState('filter'))
+        config: defaultConfig
     };
     var store = createStore(reducer,
         state,

@@ -139,8 +139,8 @@ exports.default = {
 			"output": "PHP object"
 		},
 		"handlers": {
-			"input": ['_newline', 'zcomma', 'atab', 'aphp-array-arrow', 'zspace', 'aspace', '_double-quote'],
-			"output": [['_equal', 'aspace', 'zspace'], '_php-object', 'zsemicolon', 'atab', 'atab', '_newline']
+			"input": ['_newline', 'zcomma', 'atab', '_php-array-arrow', 'zspace', 'aspace', 'azdouble-quote'],
+			"output": [['_equal', 'aspace', 'zspace'], 'aphp-object', 'zsemicolon', 'atab', 'atab', '_newline']
 		}
 	}]
 };
