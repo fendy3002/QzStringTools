@@ -54433,6 +54433,95 @@
 
 	    var configsDomDelimiter = _lodash2.default.map(delimiterHandler, delimiterTemplate);
 	    var configsDomSurround = _lodash2.default.map(surroundHandler, surroundTemplate);
+
+	    var combinationDom = _lodash2.default.map(config.combination, function (k) {
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'box box-primary' },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'box-body' },
+	                _react2.default.createElement(
+	                    'table',
+	                    { className: 'table table-condensed table-striped' },
+	                    _react2.default.createElement(
+	                        'tbody',
+	                        null,
+	                        _react2.default.createElement(
+	                            'tr',
+	                            null,
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                'Code'
+	                            ),
+	                            _react2.default.createElement(
+	                                'td',
+	                                null,
+	                                k.code
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'tr',
+	                            null,
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                'Name (Input)'
+	                            ),
+	                            _react2.default.createElement(
+	                                'td',
+	                                null,
+	                                k.name.input
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'tr',
+	                            null,
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                'Name (Output)'
+	                            ),
+	                            _react2.default.createElement(
+	                                'td',
+	                                null,
+	                                k.name.output
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'tr',
+	                            null,
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                'Handler (Input)'
+	                            ),
+	                            _react2.default.createElement(
+	                                'td',
+	                                null,
+	                                JSON.stringify(k.handlers.input).replace(/,/g, ", ").replace(/\[/g, "[ ").replace(/\]/g, "] ")
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'tr',
+	                            null,
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                'Handler (Output)'
+	                            ),
+	                            _react2.default.createElement(
+	                                'td',
+	                                null,
+	                                JSON.stringify(k.handlers.output).replace(/,/g, ", ").replace(/\[/g, "[ ").replace(/\]/g, "] ")
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    });
 	    return _react2.default.createElement(
 	        'div',
 	        null,
@@ -54477,6 +54566,24 @@
 	                        { className: 'col-sm-6' },
 	                        configsDomSurround
 	                    )
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'box box-solid' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'box-header' },
+	                    _react2.default.createElement(
+	                        'h3',
+	                        null,
+	                        'Combinations'
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'box-body' },
+	                    combinationDom
 	                )
 	            )
 	        )
