@@ -145,7 +145,6 @@ var trimEnd = function(src, key){
 var toPrintable = function(src){
 	return src.replace(/\t/g, "\\t")
 		.replace(/\n/g, "\\n")
-		.replace(/\b/g, "\\b")
 	    .replace(/\'/g, "\\'")
         .replace(/\"/g, '\\"');
 };

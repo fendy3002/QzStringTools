@@ -60759,7 +60759,7 @@
 	};
 
 	var toPrintable = function toPrintable(src) {
-		return src.replace(/\t/g, "\\t").replace(/\n/g, "\\n").replace(/\b/g, "\\b").replace(/\'/g, "\\'").replace(/\"/g, '\\"');
+		return src.replace(/\t/g, "\\t").replace(/\n/g, "\\n").replace(/\'/g, "\\'").replace(/\"/g, '\\"');
 	};
 
 	exports.default = {
