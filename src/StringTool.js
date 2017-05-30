@@ -111,7 +111,6 @@ var getHandler = function(currentInputHandler, config){
 				inputHandler.start += eachHandler.start;
 				inputHandler.end += eachHandler.end;
 			}
-			console.log("inputHandler", inputHandler);
 		}
 	}
 	else{

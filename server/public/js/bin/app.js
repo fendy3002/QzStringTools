@@ -60728,7 +60728,6 @@
 					inputHandler.start += eachHandler.start;
 					inputHandler.end += eachHandler.end;
 				}
-				console.log("inputHandler", inputHandler);
 			}
 		} else {
 			inputHandler = _lodash2.default.filter(config.handler, function (k) {
