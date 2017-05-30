@@ -165,6 +165,13 @@ export default {
 			"type": "surround",
 			"start": "drop table ",
 			"end": ""
+		},
+		{
+			"code": "azsql-select-unionall",
+			"name": "Surround SQL select union all",
+			"type": "surround",
+			"start": "select ",
+			"end": "union all"
 		}
 	],
 	"command" : [
@@ -175,8 +182,30 @@ export default {
 				"output": "single quote comma newline"
 			},
 			"handlers": {
-				"input" : ['_newline', '_comma'],
-				"output" : ['_comma', ['a-squote', 'z-squote'], '_newline']
+				"input" : ['_newline', '_comma', ['aspace', 'zspace']],
+				"output" : [['a-squote', 'z-squote'], ['_comma', 'zspace'], '_newline']
+			}
+		},
+		{
+			"code": "sql-drop-table",
+			"name": {
+				"input": "newline",
+				"output": "drop table syntax"
+			},
+			"handlers": {
+				"input" : ['_newline'],
+				"output" : [['asql-drop-table', 'zsemicolon'], '_newline']
+			}
+		},
+		{
+			"code": "tabbed-sql-select-union-all",
+			"name": {
+				"input": "newline tab",
+				"output": "sql union all"
+			},
+			"handlers": {
+				"input" : ['_newline', '_tab', ['aspace', 'zspace']],
+				"output" : [['a-squote', 'z-squote'], ['_comma', 'zspace'], 'azsql-select-unionall', '_newline']
 			}
 		},
 		{
