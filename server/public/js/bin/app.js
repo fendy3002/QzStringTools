@@ -64448,12 +64448,16 @@
 	        );
 	    };
 
-	    var delimiterHandler = _lodash2.default.filter(config.handler, function (k) {
+	    var delimiterHandler = _lodash2.default.chain(config.handler).filter(function (k) {
 	        return k.type == "delimiter";
-	    });
-	    var surroundHandler = _lodash2.default.filter(config.handler, function (k) {
+	    }).sortBy(function (k) {
+	        return k.code;
+	    }).value();
+	    var surroundHandler = _lodash2.default.chain(config.handler).filter(function (k) {
 	        return k.type == "surround";
-	    });
+	    }).sortBy(function (k) {
+	        return k.code;
+	    }).value();
 
 	    var configsDomDelimiter = _lodash2.default.map(delimiterHandler, delimiterTemplate);
 	    var configsDomSurround = _lodash2.default.map(surroundHandler, surroundTemplate);

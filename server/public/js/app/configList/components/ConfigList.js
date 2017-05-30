@@ -47,8 +47,8 @@ var ConfigList = function({config}){
         </div>;
     };
 
-    var delimiterHandler = lo.filter(config.handler, k=> k.type == "delimiter");
-    var surroundHandler = lo.filter(config.handler, k=> k.type == "surround");
+    var delimiterHandler = lo.chain(config.handler).filter(k=> k.type == "delimiter").sortBy(k => k.code).value();
+    var surroundHandler = lo.chain(config.handler).filter(k=> k.type == "surround").sortBy(k => k.code).value();
 
     var configsDomDelimiter = lo.map(delimiterHandler, delimiterTemplate);
     var configsDomSurround = lo.map(surroundHandler, surroundTemplate);
