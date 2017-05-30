@@ -15,6 +15,11 @@ var SideBar = ({host}) =>
                     <i className="fa fa-gear"></i> <span>Config</span>
                 </a>
             </li>
+            <li className="active treeview menu-open">
+                <a href={host + "/about"}>
+                    <i className="fa fa-info-circle"></i> <span>About</span>
+                </a>
+            </li>
         </ul>
     </section>
   </aside>;

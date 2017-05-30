@@ -38,6 +38,7 @@
     "bootstrap-sass": "^3.0.0",
     "browserify": "^13.1.0",
     "change-case": "^3.0.0",
+    "express": "^4.15.3",
     "fixed-data-table": "^0.6.3",
     "jquery": "^3.1.1",
     "laravel-elixir": "^4.0.0",

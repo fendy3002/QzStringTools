@@ -7,6 +7,7 @@ import {
 
 import HomeApp from './stringTools/components/App.js';
 import ConfigApp from './configList/components/App.js';
+import AboutApp from './about/components/App.js';
 
 var Routes = function(){
     var host = location.protocol + "//" + window.location.host;
@@ -14,6 +15,7 @@ var Routes = function(){
         <div>
             <Route exact path="/" component={HomeApp}/>
             <Route path="/config" component={ConfigApp}/>
+            <Route path="/about" component={AboutApp}/>
         </div>
     </Router>;
 };
