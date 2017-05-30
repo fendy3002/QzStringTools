@@ -12,9 +12,13 @@ import reducer from './reducers';
 import defaultConfig from '../../../../src/config.js';
 
 var renderPage = function(initialState){
-    console.log(defaultConfig);
     var state = {
-        config: defaultConfig
+        config: defaultConfig,
+        filter: {
+            selectedCommand: defaultConfig.command[0],
+            searchCommandKeyword: "",
+            convertedInput: ""
+        }
     };
     var store = createStore(reducer,
         state,
