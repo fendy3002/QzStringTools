@@ -74,7 +74,21 @@ var handleOutput = function(srcs, outputHandler){
 		return srcs.join(outputHandler.delimiter);
 	}
 	else if(outputHandler.type =="surround"){
-		return lo.map(srcs, k=> outputHandler.start + k + outputHandler.end);
+		if(isNumeric(outputHandler.targetIndex)){
+			var result = [];
+			for(var i = 0; i < srcs.length; i++){
+				if(i == outputHandler.targetIndex){
+					result.push(outputHandler.start + srcs[i] + outputHandler.end);
+				}
+				else{
+					result.push(srcs[i]);
+				}
+			}
+			return result;
+		}
+		else{
+			return lo.map(srcs, k=> outputHandler.start + k + outputHandler.end);
+		}
 	}
 };
 
@@ -83,6 +97,9 @@ var getHandler = function(currentInputHandler, config){
 	if(Array.isArray(currentInputHandler)){
 		var currentInputHandlers = lo.map(currentInputHandler,
 			l => {
+				if(isNumeric(l)){
+					return l;
+				}
 				var returnHandler = lo.filter(config.handler, k=> k.code == l)[0];
 				if(!returnHandler){
 					throw new Error('Handle ' + l + ' not found');
@@ -107,9 +124,14 @@ var getHandler = function(currentInputHandler, config){
 			inputHandler = {...currentInputHandlers[0]};
 			for(var i = 1; i < currentInputHandlers.length; i++){
 				var eachHandler = currentInputHandlers[i];
-				inputHandler.code += " " + eachHandler.code;
-				inputHandler.start += eachHandler.start;
-				inputHandler.end += eachHandler.end;
+				if(isNumeric(eachHandler)){
+					inputHandler.targetIndex = eachHandler;
+				}
+				else{
+					inputHandler.code += " " + eachHandler.code;
+					inputHandler.start += eachHandler.start;
+					inputHandler.end += eachHandler.end;
+				}
 			}
 		}
 	}
@@ -148,6 +170,8 @@ var toPrintable = function(src){
 	    .replace(/\'/g, "\\'")
         .replace(/\"/g, '\\"');
 };
+
+var isNumeric = n => !isNaN(parseFloat(n)) && isFinite(n);
 
 export default {
 	convert: convert,

@@ -172,7 +172,7 @@ exports.default = {
 		},
 		"handlers": {
 			"input": [['acomma', '_newline'], 'atab', '_darrow', ['zspace', 'aspace']],
-			"output": [['_colon', 'aspace', 'zspace'], ['atab', 'atab'], ['acomma', '_newline']]
+			"output": [['_colon', 'aspace', 'zspace'], ['atab', 'atab'], ['_newline', 'acomma']]
 		}
 	}]
 };

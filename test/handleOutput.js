@@ -39,10 +39,11 @@ describe('StringTool', function() {
 				"name": "Single quote surround",
 				"type": "surround",
 				"start": "'",
-				"end": "'"
+				"end": "'",
+                "targetIndex": 0
 	    	};
 	    	var result = stringTool.handleOutput(["hello", "world"], handler);
-	      	assert.deepEqual(["'hello'", "'world'"], result);
+	      	assert.deepEqual(["'hello'", "world"], result);
 	    });
 	});
   });

@@ -194,11 +194,22 @@ export default {
 			"code": "php-array-to-json",
 			"name": {
 				"input": "PHP Array",
-				"output": "PHP object"
+				"output": "Json"
 			},
 			"handlers": {
 				"input" : [['acomma', '_newline'], 'atab', '_darrow', ['zspace', 'aspace'] ],
 				"output" : [['_colon', 'aspace', 'zspace'], ['atab', 'atab'], ['_newline', 'acomma']]
+			}
+		},
+		{
+			"code": "php-object-to-json",
+			"name": {
+				"input": "PHP Object",
+				"output": "Json"
+			},
+			"handlers": {
+				"input" : ['_newline', 'zsemicolon', 'atab', 'aphp-object', '_equal', ['zspace', 'aspace'] ],
+				"output" : [['a-dquote', 'z-dquote', 0], ['_colon', 'aspace', 'zspace'], ['atab', 'atab'], ['_newline', 'acomma']]
 			}
 		}
 	]

@@ -92,9 +92,21 @@ var handleOutput = function handleOutput(srcs, outputHandler) {
 	if (outputHandler.type == "delimiter") {
 		return srcs.join(outputHandler.delimiter);
 	} else if (outputHandler.type == "surround") {
-		return _lodash2.default.map(srcs, function (k) {
-			return outputHandler.start + k + outputHandler.end;
-		});
+		if (isNumeric(outputHandler.targetIndex)) {
+			var result = [];
+			for (var i = 0; i < srcs.length; i++) {
+				if (i == outputHandler.targetIndex) {
+					result.push(outputHandler.start + srcs[i] + outputHandler.end);
+				} else {
+					result.push(srcs[i]);
+				}
+			}
+			return result;
+		} else {
+			return _lodash2.default.map(srcs, function (k) {
+				return outputHandler.start + k + outputHandler.end;
+			});
+		}
 	}
 };
 
@@ -102,6 +114,9 @@ var getHandler = function getHandler(currentInputHandler, config) {
 	var inputHandler = null;
 	if (Array.isArray(currentInputHandler)) {
 		var currentInputHandlers = _lodash2.default.map(currentInputHandler, function (l) {
+			if (isNumeric(l)) {
+				return l;
+			}
 			var returnHandler = _lodash2.default.filter(config.handler, function (k) {
 				return k.code == l;
 			})[0];
@@ -129,9 +144,13 @@ var getHandler = function getHandler(currentInputHandler, config) {
 			inputHandler = _extends({}, currentInputHandlers[0]);
 			for (var i = 1; i < currentInputHandlers.length; i++) {
 				var eachHandler = currentInputHandlers[i];
-				inputHandler.code += " " + eachHandler.code;
-				inputHandler.start += eachHandler.start;
-				inputHandler.end += eachHandler.end;
+				if (isNumeric(eachHandler)) {
+					inputHandler.targetIndex = eachHandler;
+				} else {
+					inputHandler.code += " " + eachHandler.code;
+					inputHandler.start += eachHandler.start;
+					inputHandler.end += eachHandler.end;
+				}
 			}
 		}
 	} else {
@@ -165,6 +184,10 @@ var trimEnd = function trimEnd(src, key) {
 
 var toPrintable = function toPrintable(src) {
 	return src.replace(/\t/g, "\\t").replace(/\n/g, "\\n").replace(/\'/g, "\\'").replace(/\"/g, '\\"');
+};
+
+var isNumeric = function isNumeric(n) {
+	return !isNaN(parseFloat(n)) && isFinite(n);
 };
 
 exports.default = {
