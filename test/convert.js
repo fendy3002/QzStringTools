@@ -26,8 +26,8 @@ describe('StringTool', function() {
 				"c" => $c';
 			var selectedConfig = {
 				handlers:{
-					"input" : ['_newline', 'zcomma', 'atab', '_php-array-arrow', 'zspace', 'aspace', 'azdouble-quote'],
-					"output" : [['_equal', 'aspace', 'zspace'], 'aphp-object', 'zsemicolon', 'atab', 'atab', '_newline']
+					"input" : ['_newline', 'zcomma', 'atab', '_darrow', ['zspace', 'aspace'], 'a-dquote', 'z-dquote' ],
+					"output" : [['_equal', 'aspace', 'zspace'], ['aphp-object', 'zsemicolon'], ['atab', 'atab'], '_newline']
 				}
 			};
 			var expected = '\

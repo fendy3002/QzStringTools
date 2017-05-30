@@ -37,16 +37,22 @@ export default {
 			"delimiter": "|"
 		},
 		{
-			"code": "_double-pipe",
+			"code": "_dpipe",
 			"name": "Double pipe delimiter",
 			"type": "delimiter",
 			"delimiter": "||"
 		},
 		{
-			"code": "_php-array-arrow",
-			"name": "PHP array arrow",
+			"code": "_darrow",
+			"name": "Double arrow",
 			"type": "delimiter",
 			"delimiter": "=>"
+		},
+		{
+			"code": "_sarrow",
+			"name": "Single arrow",
+			"type": "delimiter",
+			"delimiter": "->"
 		},
 		{
 			"code": "_equal",
@@ -64,17 +70,31 @@ export default {
 		},
 
 		{
-			"code": "azsingle-quote",
+			"code": "a-squote",
 			"name": "Single quote surround",
 			"type": "surround",
 			"start": "'",
+			"end": ""
+		},
+		{
+			"code": "z-squote",
+			"name": "Single quote surround",
+			"type": "surround",
+			"start": "",
 			"end": "'"
 		},
 		{
-			"code": "azdouble-quote",
+			"code": "a-dquote",
 			"name": "Double quote surround",
 			"type": "surround",
 			"start": '"',
+			"end": ''
+		},
+		{
+			"code": "z-dquote",
+			"name": "Double quote surround",
+			"type": "surround",
+			"start": '',
 			"end": '"'
 		},
 		{
@@ -134,14 +154,14 @@ export default {
 			"end": "\t"
 		},
 		{
-			"code": "azsql-drop-table",
+			"code": "asql-drop-table",
 			"name": "SQL drop table",
 			"type": "surround",
 			"start": "drop table ",
-			"end": ";"
+			"end": ""
 		}
 	],
-	"combination" : [
+	"command" : [
 		{
 			"code": "1",
 			"name": {
@@ -150,7 +170,7 @@ export default {
 			},
 			"handlers": {
 				"input" : ['_newline', '_comma'],
-				"output" : ['_comma', 'azsingle-quote', '_newline']
+				"output" : ['_comma', ['a-squote', 'z-squote'], '_newline']
 			}
 		},
 		{
@@ -160,8 +180,8 @@ export default {
 				"output": "PHP object"
 			},
 			"handlers": {
-				"input" : ['_newline', 'zcomma', 'atab', '_php-array-arrow', 'zspace', 'aspace', 'azdouble-quote'],
-				"output" : [['_equal', 'aspace', 'zspace'], 'aphp-object', 'zsemicolon', 'atab', 'atab', '_newline']
+				"input" : ['_newline', ['zcomma', 'atab'], '_darrow', ['zspace', 'aspace', 'a-dquote', 'z-dquote'] ],
+				"output" : [['_equal', 'aspace', 'zspace'], ['aphp-object', 'zsemicolon', 'atab', 'atab'], '_newline']
 			}
 		}
 	]

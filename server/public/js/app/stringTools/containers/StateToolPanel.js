@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import React, { PropTypes } from 'react';
-import ConfigList from '../components/ConfigList.js';
+import Component from '../components/ToolPanel.js';
 
 var mapStateToProps = function(state){
     return {
@@ -13,9 +13,9 @@ var mapDispatchToProps = function(dispatch, getState){
     return {
     };
 };
-var StateConfigList = connect(
+var StateComponent = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ConfigList);
+)(Component);
 
-export default StateConfigList;
+export default StateComponent;

@@ -90,15 +90,29 @@ var getHandler = function(currentInputHandler, config){
 				return returnHandler
 			});
 		var currentDelimiter = lo.filter(currentInputHandlers, k => k.type == "delimiter")[0];
-		for(var i = 0; i < currentInputHandlers.length; i++){
-			var eachDelimiter = currentInputHandlers[i];
-			if(eachDelimiter.type == 'delimiter'){ continue; }
-			else{
-				currentDelimiter.delimiter =
-					eachDelimiter.start + currentDelimiter.delimiter + eachDelimiter.end;
+		if(currentDelimiter){
+			currentDelimiter = {...currentDelimiter};
+			for(var i = 0; i < currentInputHandlers.length; i++){
+				var eachHandler = currentInputHandlers[i];
+				if(eachHandler.type == 'delimiter'){ continue; }
+				else{
+					currentDelimiter.code += " " + eachHandler.code;
+					currentDelimiter.delimiter =
+						eachHandler.start + currentDelimiter.delimiter + eachHandler.end;
+				}
 			}
+			inputHandler = currentDelimiter;
 		}
-		inputHandler = currentDelimiter;
+		else{
+			inputHandler = {...currentInputHandlers[0]};
+			for(var i = 1; i < currentInputHandlers.length; i++){
+				var eachHandler = currentInputHandlers[i];
+				inputHandler.code += " " + eachHandler.code;
+				inputHandler.start += eachHandler.start;
+				inputHandler.end += eachHandler.end;
+			}
+			console.log("inputHandler", inputHandler);
+		}
 	}
 	else{
 		inputHandler = lo.filter(config.handler, k=> k.code == currentInputHandler)[0];

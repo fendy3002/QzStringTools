@@ -53,7 +53,7 @@ var ConfigList = function({config}){
     var configsDomDelimiter = lo.map(delimiterHandler, delimiterTemplate);
     var configsDomSurround = lo.map(surroundHandler, surroundTemplate);
 
-    var combinationDom = lo.map(config.combination,
+    var commandDom = lo.map(config.command,
         k=> <div className="box box-primary">
             <div className="box-body">
                 <table className="table table-condensed table-striped">
@@ -110,10 +110,10 @@ var ConfigList = function({config}){
             </div>
             <div className = "box box-solid">
                 <div className="box-header">
-                    <h3>Combinations</h3>
+                    <h3>Commands</h3>
                 </div>
                 <div className="box-body">
-                    {combinationDom}
+                    {commandDom}
                 </div>
             </div>
         </section>

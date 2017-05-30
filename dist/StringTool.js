@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
@@ -111,15 +113,28 @@ var getHandler = function getHandler(currentInputHandler, config) {
 		var currentDelimiter = _lodash2.default.filter(currentInputHandlers, function (k) {
 			return k.type == "delimiter";
 		})[0];
-		for (var i = 0; i < currentInputHandlers.length; i++) {
-			var eachDelimiter = currentInputHandlers[i];
-			if (eachDelimiter.type == 'delimiter') {
-				continue;
-			} else {
-				currentDelimiter.delimiter = eachDelimiter.start + currentDelimiter.delimiter + eachDelimiter.end;
+		if (currentDelimiter) {
+			currentDelimiter = _extends({}, currentDelimiter);
+			for (var i = 0; i < currentInputHandlers.length; i++) {
+				var eachHandler = currentInputHandlers[i];
+				if (eachHandler.type == 'delimiter') {
+					continue;
+				} else {
+					currentDelimiter.code += " " + eachHandler.code;
+					currentDelimiter.delimiter = eachHandler.start + currentDelimiter.delimiter + eachHandler.end;
+				}
 			}
+			inputHandler = currentDelimiter;
+		} else {
+			inputHandler = _extends({}, currentInputHandlers[0]);
+			for (var i = 1; i < currentInputHandlers.length; i++) {
+				var eachHandler = currentInputHandlers[i];
+				inputHandler.code += " " + eachHandler.code;
+				inputHandler.start += eachHandler.start;
+				inputHandler.end += eachHandler.end;
+			}
+			console.log("inputHandler", inputHandler);
 		}
-		inputHandler = currentDelimiter;
 	} else {
 		inputHandler = _lodash2.default.filter(config.handler, function (k) {
 			return k.code == currentInputHandler;
@@ -149,6 +164,10 @@ var trimEnd = function trimEnd(src, key) {
 	}
 };
 
+var toPrintable = function toPrintable(src) {
+	return src.replace(/\t/g, "\\t").replace(/\n/g, "\\n").replace(/\b/g, "\\b").replace(/\'/g, "\\'").replace(/\"/g, '\\"');
+};
+
 exports.default = {
 	convert: convert,
 	convertInput: convertInput,
@@ -156,5 +175,6 @@ exports.default = {
 	handleInput: handleInput,
 	handleOutput: handleOutput,
 	trimEnd: trimEnd,
-	trimStart: trimStart
+	trimStart: trimStart,
+	toPrintable: toPrintable
 };
