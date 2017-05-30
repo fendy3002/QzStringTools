@@ -7,6 +7,7 @@ import QzReactReduxHashState from '@fendy3002/react-redux-hash-state';
 
 import sa from 'superagent';
 import App from './stringTools/components/App.js';
+import Routes from './Routes.js';
 import reducer from './stringTools/reducers';
 import defaultConfig from '../../../../src/config.js';
 
@@ -20,7 +21,7 @@ var renderPage = function(initialState){
         applyMiddleware(thunk));
     render(
         <Provider store={store}>
-            <App />
+            <Routes />
         </Provider>,
         document.getElementById('content')
     );

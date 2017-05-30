@@ -130,17 +130,11 @@ var trimEnd = function(src, key){
 };
 
 var toPrintable = function(src){
-	return src.replace("\t", "\\t")
-		.replace("\n", "\\n");
-
-	/*replace(/\\n/g, "\\n")
-       .replace(/\\'/g, "\\'")
-       .replace(/\\"/g, '\\"')
-       .replace(/\\&/g, "\\&")
-       .replace(/\\r/g, "\\r")
-       .replace(/\\t/g, "\\t")
-       .replace(/\\b/g, "\\b")
-       .replace(/\\f/g, "\\f");*/
+	return src.replace(/\t/g, "\\t")
+		.replace(/\n/g, "\\n")
+		.replace(/\b/g, "\\b")
+	    .replace(/\'/g, "\\'")
+        .replace(/\"/g, '\\"');
 };
 
 export default {
