@@ -1,6 +1,5 @@
 import React from 'react';
 import lo from 'lodash';
-import StringTool from '../../../../../../src/StringTool.js';
 import RSelect from 'react-select';
 import Highlighter from 'react-highlight-words';
 import 'react-select/dist/react-select.css';

@@ -1,6 +1,6 @@
 import sa from 'superagent';
 import lo from 'lodash';
-import StringTool from '../../../../../../src/StringTool.js';
+import StringTool from '../../../../../../src/index.js';
 
 var setSelectedCommand = exports.setSelectedCommand = function(command){
     return {

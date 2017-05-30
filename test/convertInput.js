@@ -1,5 +1,5 @@
 var assert = require('assert');
-var stringTool = require('../dist/StringTool.js').default;
+var stringTool = require('../dist/index.js').default;
 var config = require('../dist/config.js').default;
 
 describe('StringTool', function() {

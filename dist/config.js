@@ -145,7 +145,7 @@ exports.default = {
 		"end": ""
 	}],
 	"command": [{
-		"code": "1",
+		"code": "sql-single-quote",
 		"name": {
 			"input": "newline comma",
 			"output": "single quote comma newline"
@@ -161,18 +161,28 @@ exports.default = {
 			"output": "PHP object"
 		},
 		"handlers": {
-			"input": ['_newline', ['zcomma', 'atab'], '_darrow', ['zspace', 'aspace', 'a-dquote', 'z-dquote']],
+			"input": ['_newline', ['zcomma', 'atab'], '_darrow', ['zspace', 'aspace'], ['a-dquote', 'z-dquote']],
 			"output": [['_equal', 'aspace', 'zspace'], ['atab', 'atab', 'aphp-object', 'zsemicolon'], '_newline']
 		}
 	}, {
 		"code": "php-array-to-json",
 		"name": {
 			"input": "PHP Array",
-			"output": "PHP object"
+			"output": "Json"
 		},
 		"handlers": {
 			"input": [['acomma', '_newline'], 'atab', '_darrow', ['zspace', 'aspace']],
 			"output": [['_colon', 'aspace', 'zspace'], ['atab', 'atab'], ['_newline', 'acomma']]
+		}
+	}, {
+		"code": "php-object-to-json",
+		"name": {
+			"input": "PHP Object",
+			"output": "Json"
+		},
+		"handlers": {
+			"input": ['_newline', 'zsemicolon', 'atab', 'aphp-object', '_equal', ['zspace', 'aspace']],
+			"output": [['a-dquote', 'z-dquote', 0], ['_colon', 'aspace', 'zspace'], ['atab', 'atab'], ['_newline', 'acomma']]
 		}
 	}]
 };

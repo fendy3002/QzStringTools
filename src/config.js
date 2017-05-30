@@ -169,7 +169,7 @@ export default {
 	],
 	"command" : [
 		{
-			"code": "1",
+			"code": "sql-single-quote",
 			"name": {
 				"input": "newline comma",
 				"output": "single quote comma newline"
@@ -186,7 +186,7 @@ export default {
 				"output": "PHP object"
 			},
 			"handlers": {
-				"input" : ['_newline', ['zcomma', 'atab'], '_darrow', ['zspace', 'aspace', 'a-dquote', 'z-dquote'] ],
+				"input" : ['_newline', ['zcomma', 'atab'], '_darrow', ['zspace', 'aspace'], ['a-dquote', 'z-dquote'] ],
 				"output" : [['_equal', 'aspace', 'zspace'], ['atab', 'atab', 'aphp-object', 'zsemicolon'], '_newline']
 			}
 		},

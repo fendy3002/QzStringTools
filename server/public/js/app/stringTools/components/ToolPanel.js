@@ -1,6 +1,5 @@
 import React from 'react';
 import lo from 'lodash';
-import StringTool from '../../../../../../src/StringTool.js';
 import RSelect from 'react-select';
 import Highlighter from 'react-highlight-words';
 import 'react-select/dist/react-select.css';
@@ -10,7 +9,6 @@ import SelectedCommandPanel from './SelectedCommandPanel.js';
 var Dom = function({filter, config,
     setSelectedCommand, convertInput}){
     var refTextInput = null;
-    console.log(filter.convertedInput);
     return <div>
         <section className="content-header">
             <h1>

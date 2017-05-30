@@ -1,6 +1,6 @@
 import React from 'react';
 import lo from 'lodash';
-import StringTool from '../../../../../../src/StringTool.js';
+import StringTool from '../../../../../../src/index.js';
 
 var ConfigList = function({config}){
     var delimiterTemplate = cfg => {
