@@ -133,7 +133,6 @@ var getHandler = function getHandler(currentInputHandler, config) {
 				inputHandler.start += eachHandler.start;
 				inputHandler.end += eachHandler.end;
 			}
-			console.log("inputHandler", inputHandler);
 		}
 	} else {
 		inputHandler = _lodash2.default.filter(config.handler, function (k) {
@@ -165,7 +164,7 @@ var trimEnd = function trimEnd(src, key) {
 };
 
 var toPrintable = function toPrintable(src) {
-	return src.replace(/\t/g, "\\t").replace(/\n/g, "\\n").replace(/\b/g, "\\b").replace(/\'/g, "\\'").replace(/\"/g, '\\"');
+	return src.replace(/\t/g, "\\t").replace(/\n/g, "\\n").replace(/\'/g, "\\'").replace(/\"/g, '\\"');
 };
 
 exports.default = {

@@ -38,5 +38,24 @@ describe('StringTool', function() {
 			var result = stringTool.convert(src, selectedConfig, config);
 			assert.deepEqual(result, expected);
 		});
+		it('should output same structure with expected (PHP to json)', function() {
+			var src = '\
+				"a" => $a,\n\
+				"b" => $b,\n\
+				"c" => $c';
+			var selectedConfig = {
+				handlers:{
+					"input" : [['acomma', '_newline'], 'atab', '_darrow', ['zspace', 'aspace'] ],
+					"output" : [['_colon', 'aspace', 'zspace'], ['atab', 'atab'], ['_newline', 'acomma']]
+				}
+			};
+			var expected = '\
+\t\t"a" : $a,\n\
+\t\t"b" : $b,\n\
+\t\t"c" : $c';
+
+			var result = stringTool.convert(src, selectedConfig, config);
+			assert.deepEqual(result, expected);
+		});
 	});
 });

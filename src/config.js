@@ -60,6 +60,12 @@ export default {
 			"type": "delimiter",
 			"delimiter": "="
 		},
+		{
+			"code": "_colon",
+			"name": "Colon sign delimiter",
+			"type": "delimiter",
+			"delimiter": ":"
+		},
 
 		{
 			"code": "aphp-object",
@@ -182,6 +188,17 @@ export default {
 			"handlers": {
 				"input" : ['_newline', ['zcomma', 'atab'], '_darrow', ['zspace', 'aspace', 'a-dquote', 'z-dquote'] ],
 				"output" : [['_equal', 'aspace', 'zspace'], ['atab', 'atab', 'aphp-object', 'zsemicolon'], '_newline']
+			}
+		},
+		{
+			"code": "php-array-to-json",
+			"name": {
+				"input": "PHP Array",
+				"output": "PHP object"
+			},
+			"handlers": {
+				"input" : [['acomma', '_newline'], 'atab', '_darrow', ['zspace', 'aspace'] ],
+				"output" : [['_colon', 'aspace', 'zspace'], ['atab', 'atab'], ['acomma','_newline']]
 			}
 		}
 	]
