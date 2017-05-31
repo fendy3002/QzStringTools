@@ -60970,12 +60970,12 @@
 		"command": [{
 			"code": "sql-single-quote",
 			"name": {
-				"input": "comma delimited",
+				"input": "newline delimited",
 				"output": "single quote comma newline"
 			},
 			"handlers": {
-				"input": ['_newline', '_comma', ['aspace', 'zspace']],
-				"output": [['a-squote', 'z-squote'], ['_comma', 'zspace'], '_newline']
+				"input": ['_newline', ['aspace', 'zspace']],
+				"output": [['a-squote', 'z-squote'], ['_newline', 'acomma']]
 			}
 		}, {
 			"code": "sql-drop-table",
