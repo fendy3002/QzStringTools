@@ -194,6 +194,7 @@ exports.default = {
 	convert: convert,
 	convertInput: convertInput,
 	convertOutput: convertOutput,
+	defaultConfig: _config2.default,
 	handleInput: handleInput,
 	handleOutput: handleOutput,
 	trimEnd: trimEnd,
