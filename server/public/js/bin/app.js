@@ -76,7 +76,7 @@
 
 	var _Routes2 = _interopRequireDefault(_Routes);
 
-	var _reducers = __webpack_require__(330);
+	var _reducers = __webpack_require__(331);
 
 	var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -43283,6 +43283,24 @@
 	            'div',
 	            { className: 'content-wrapper' },
 	            children
+	        ),
+	        _react2.default.createElement(
+	            'footer',
+	            { className: 'main-footer' },
+	            _react2.default.createElement(
+	                'strong',
+	                null,
+	                _react2.default.createElement(
+	                    'span',
+	                    null,
+	                    'View my repo at: '
+	                ),
+	                _react2.default.createElement(
+	                    'a',
+	                    { href: 'https://github.com/fendy3002/QzStringTools' },
+	                    'https://github.com/fendy3002/QzStringTools'
+	                )
+	            )
 	        )
 	    );
 	};
@@ -70515,7 +70533,7 @@
 
 	var _reactMarkdown2 = _interopRequireDefault(_reactMarkdown);
 
-	var _index = __webpack_require__(334);
+	var _index = __webpack_require__(330);
 
 	var _AppTemplate = __webpack_require__(227);
 
@@ -78601,12 +78619,37 @@
 
 	'use strict';
 
+	var _superagent = __webpack_require__(221);
+
+	var _superagent2 = _interopRequireDefault(_superagent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var setReadme = exports.setReadme = function () {
+	    return function (dispatch, getState) {
+	        var host = location.protocol + "//" + window.location.host;
+	        var readmeUrl = host + '/readme';
+	        _superagent2.default.get(readmeUrl).end(function (err, res) {
+	            dispatch({
+	                type: 'SET_README',
+	                readme: res.text
+	            });
+	        });
+	    };
+	};
+
+/***/ },
+/* 331 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
 	var _require = __webpack_require__(178),
 	    combineReducers = _require.combineReducers;
 
-	var config = __webpack_require__(331);
-	var filter = __webpack_require__(332);
-	var request = __webpack_require__(333);
+	var config = __webpack_require__(332);
+	var filter = __webpack_require__(333);
+	var request = __webpack_require__(334);
 
 	var app = combineReducers({
 	    config: config,
@@ -78617,7 +78660,7 @@
 	module.exports = app;
 
 /***/ },
-/* 331 */
+/* 332 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -78635,7 +78678,7 @@
 	module.exports = config;
 
 /***/ },
-/* 332 */
+/* 333 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -78663,7 +78706,7 @@
 	module.exports = obj;
 
 /***/ },
-/* 333 */
+/* 334 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -78685,31 +78728,6 @@
 	};
 
 	module.exports = obj;
-
-/***/ },
-/* 334 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _superagent = __webpack_require__(221);
-
-	var _superagent2 = _interopRequireDefault(_superagent);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var setReadme = exports.setReadme = function () {
-	    return function (dispatch, getState) {
-	        var host = location.protocol + "//" + window.location.host;
-	        var readmeUrl = host + '/readme';
-	        _superagent2.default.get(readmeUrl).end(function (err, res) {
-	            dispatch({
-	                type: 'SET_README',
-	                readme: res.text
-	            });
-	        });
-	    };
-	};
 
 /***/ }
 /******/ ]);

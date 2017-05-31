@@ -10,6 +10,12 @@ var AppTemplate = function({children}){
         <div className="content-wrapper">
             {children}
         </div>
+        <footer className="main-footer">
+            <strong>
+                <span>View my repo at: </span>
+                <a href="https://github.com/fendy3002/QzStringTools">https://github.com/fendy3002/QzStringTools</a>
+            </strong>
+        </footer>
     </div>;
 };
 
