@@ -1,26 +1,40 @@
-import React from 'react'
+import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import ReactMarkdown from 'react-markdown';
 
+import {setReadme} from '../actions/index.js';
 import AppTemplate from '../../sharedComponents/AppTemplate.js';
 
-var App = function(){
+var App = function({request, setReadme}){
+    if(!request.readme){
+        setReadme();
+    }
     return <AppTemplate>
-        <section className="content-header">
-            <h1>
-                <b>Qz String Tools</b>
-            </h1>
-        </section>
         <section className="content">
             <div className = "box box-solid">
-                <div className="box-header">
-                    <h3>What is it about</h3>
-                </div>
                 <div className="box-body">
-                    <p>It is a simple application to help converting some format to desired format.</p>
-                    <img src="https://cloud.githubusercontent.com/assets/5449185/26616058/ffc041d4-45f5-11e7-9709-e211e0b59a69.gif" />
+                    <ReactMarkdown source={request.readme} />
                 </div>
             </div>
         </section>
     </AppTemplate>;
 };
 
-export default App;
+var mapStateToProps = function(state){
+    return {
+        request: state.request
+    };
+};
+
+var mapDispatchToProps = function(dispatch, getState){
+    return {
+         setReadme: bindActionCreators(setReadme, dispatch)
+    };
+};
+var StateApp = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
+
+export default StateApp;

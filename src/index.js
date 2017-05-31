@@ -177,6 +177,7 @@ export default {
 	convert: convert,
 	convertInput: convertInput,
 	convertOutput: convertOutput,
+	defaultConfig: defaultConfig,
 	handleInput: handleInput,
 	handleOutput: handleOutput,
 	trimEnd: trimEnd,

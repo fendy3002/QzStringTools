@@ -167,11 +167,18 @@ export default {
 			"end": ""
 		},
 		{
-			"code": "azsql-select-unionall",
-			"name": "Surround SQL select union all",
+			"code": "asql-select",
+			"name": "Surround SQL prefix select ",
 			"type": "surround",
 			"start": "select ",
-			"end": "union all"
+			"end": ""
+		},
+		{
+			"code": "asql-unionall",
+			"name": "Surround postfix union all",
+			"type": "surround",
+			"start": "union all",
+			"end": ""
 		}
 	],
 	"command" : [
@@ -205,7 +212,7 @@ export default {
 			},
 			"handlers": {
 				"input" : ['_newline', '_tab', ['aspace', 'zspace']],
-				"output" : [['a-squote', 'z-squote'], ['_comma', 'zspace'], ['zspace', 'azsql-select-unionall'], '_newline']
+				"output" : [['a-squote', 'z-squote'], ['_comma', 'zspace'], 'asql-select', ['_newline', 'asql-unionall', 'aspace']]
 			}
 		},
 		{
