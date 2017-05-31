@@ -153,7 +153,7 @@ exports.default = {
 	"command": [{
 		"code": "sql-single-quote",
 		"name": {
-			"input": "newline comma",
+			"input": "comma delimited",
 			"output": "single quote comma newline"
 		},
 		"handlers": {
@@ -173,12 +173,12 @@ exports.default = {
 	}, {
 		"code": "tabbed-sql-select-union-all",
 		"name": {
-			"input": "newline tab",
+			"input": "tab delimited",
 			"output": "sql union all"
 		},
 		"handlers": {
 			"input": ['_newline', '_tab', ['aspace', 'zspace']],
-			"output": [['a-squote', 'z-squote'], ['_comma', 'zspace'], 'azsql-select-unionall', '_newline']
+			"output": [['a-squote', 'z-squote'], ['_comma', 'zspace'], ['zspace', 'azsql-select-unionall'], '_newline']
 		}
 	}, {
 		"code": "php-array-to-object",
