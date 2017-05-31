@@ -47,12 +47,21 @@ console.log('result', result);
 
 ### From excel spreadsheet to sql select
 
-<img src="https://cloud.githubusercontent.com/assets/5449185/26616356/10c2f24a-45f8-11e7-9fd7-da96b968b828.gif" alt="From excel spreadsheet (tab delimited) to mysql select union all"
-title="From excel spreadsheet (tab delimited) to mysql select union all"
-style="width: 800px;"/>
+<img src="https://cloud.githubusercontent.com/assets/5449185/26616356/10c2f24a-45f8-11e7-9fd7-da96b968b828.gif" 
+	alt="From excel spreadsheet (tab delimited) to mysql select union all"
+	title="From excel spreadsheet (tab delimited) to mysql select union all"
+	style="width: 800px;"/>
+
+### From newline delimited to be part of select in
+
+<img src="https://cloud.githubusercontent.com/assets/5449185/26631554/bf48530e-4635-11e7-8ee6-fb0ec1caef12.gif" 
+	alt="From newline delimited to be part of select in"
+	title="From newline delimited to be part of select in"
+	style="width: 800px;"/>
 
 ### From PHP Array to Object syntax
 
-<img src="https://cloud.githubusercontent.com/assets/5449185/26616058/ffc041d4-45f5-11e7-9709-e211e0b59a69.gif" alt="From php array syntax to object syntax"
-title="From php array syntax to object syntax"
-style="width: 800px;"/>
+<img src="https://cloud.githubusercontent.com/assets/5449185/26616058/ffc041d4-45f5-11e7-9709-e211e0b59a69.gif"
+	alt="From php array syntax to object syntax"
+	title="From php array syntax to object syntax"
+	style="width: 800px;"/>
