@@ -1,4 +1,4 @@
-export default {
+{
 	"handler" : [
 		{
 			"code": "azasterisk",
@@ -21,4 +21,4 @@ export default {
 			}
 		}
 	]
-};
+}

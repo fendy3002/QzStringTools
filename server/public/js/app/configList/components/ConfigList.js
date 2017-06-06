@@ -76,11 +76,12 @@ var ConfigList = function({config,
                             <div className="form-group">
                                 <label className="control-label">Url</label>
                                 <input type="text" className="form-control" 
-                                    ref={node => additionalConfigUrlDom = node } />
+                                    ref={node => additionalConfigUrlDom = node }
+                                    defaultValue={config.configUrl} />
                             </div>
                             <div className="form-group text-right">
                                 <button type="button" className="btn btn-flat btn-primary"
-                                    onclick={() => setConfigUrl(additionalConfigUrlDom.value) }>
+                                    onClick={() => setConfigUrl(additionalConfigUrlDom.value) }>
                                     Update
                                 </button>
                             </div>

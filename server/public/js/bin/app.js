@@ -76,7 +76,7 @@
 
 	var _Routes2 = _interopRequireDefault(_Routes);
 
-	var _reducers = __webpack_require__(323);
+	var _reducers = __webpack_require__(325);
 
 	var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -49066,7 +49066,7 @@
 
 	var _App4 = _interopRequireDefault(_App3);
 
-	var _App5 = __webpack_require__(295);
+	var _App5 = __webpack_require__(297);
 
 	var _App6 = _interopRequireDefault(_App5);
 
@@ -52402,7 +52402,7 @@
 
 	var _ConfigList2 = _interopRequireDefault(_ConfigList);
 
-	var _index = __webpack_require__(328);
+	var _index = __webpack_require__(296);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -52439,7 +52439,7 @@
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
-	var _Command = __webpack_require__(327);
+	var _Command = __webpack_require__(295);
 
 	var _Command2 = _interopRequireDefault(_Command);
 
@@ -52632,7 +52632,8 @@
 	                                _react2.default.createElement('input', { type: 'text', className: 'form-control',
 	                                    ref: function ref(node) {
 	                                        return additionalConfigUrlDom = node;
-	                                    } })
+	                                    },
+	                                    defaultValue: config.configUrl })
 	                            ),
 	                            _react2.default.createElement(
 	                                'div',
@@ -52640,7 +52641,7 @@
 	                                _react2.default.createElement(
 	                                    'button',
 	                                    { type: 'button', className: 'btn btn-flat btn-primary',
-	                                        onclick: function onclick() {
+	                                        onClick: function onClick() {
 	                                            return setConfigUrl(additionalConfigUrlDom.value);
 	                                        } },
 	                                    'Update'
@@ -52705,6 +52706,141 @@
 /* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var CommandList = function CommandList(_ref) {
+	    var command = _ref.command;
+
+	    return _react2.default.createElement(
+	        "div",
+	        { className: "box box-primary" },
+	        _react2.default.createElement(
+	            "div",
+	            { className: "box-body" },
+	            _react2.default.createElement(
+	                "table",
+	                { className: "table table-condensed table-striped" },
+	                _react2.default.createElement(
+	                    "tbody",
+	                    null,
+	                    _react2.default.createElement(
+	                        "tr",
+	                        null,
+	                        _react2.default.createElement(
+	                            "th",
+	                            null,
+	                            "Code"
+	                        ),
+	                        _react2.default.createElement(
+	                            "td",
+	                            null,
+	                            command.code
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "tr",
+	                        null,
+	                        _react2.default.createElement(
+	                            "th",
+	                            null,
+	                            "Name (Input)"
+	                        ),
+	                        _react2.default.createElement(
+	                            "td",
+	                            null,
+	                            command.name.input
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "tr",
+	                        null,
+	                        _react2.default.createElement(
+	                            "th",
+	                            null,
+	                            "Name (Output)"
+	                        ),
+	                        _react2.default.createElement(
+	                            "td",
+	                            null,
+	                            command.name.output
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "tr",
+	                        null,
+	                        _react2.default.createElement(
+	                            "th",
+	                            null,
+	                            "Handler (Input)"
+	                        ),
+	                        _react2.default.createElement(
+	                            "td",
+	                            null,
+	                            JSON.stringify(command.handlers.input).replace(/,/g, ", ").replace(/\[/g, "[ ").replace(/\]/g, "] ")
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "tr",
+	                        null,
+	                        _react2.default.createElement(
+	                            "th",
+	                            null,
+	                            "Handler (Output)"
+	                        ),
+	                        _react2.default.createElement(
+	                            "td",
+	                            null,
+	                            JSON.stringify(command.handlers.output).replace(/,/g, ", ").replace(/\[/g, "[ ").replace(/\]/g, "] ")
+	                        )
+	                    )
+	                )
+	            )
+	        )
+	    );
+	};
+
+	exports.default = CommandList;
+
+/***/ }),
+/* 296 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _superagent = __webpack_require__(219);
+
+	var _superagent2 = _interopRequireDefault(_superagent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var setConfigUrl = exports.setConfigUrl = function (url) {
+	    return function (dispatch, getState) {
+	        localStorage.setItem('QzStringTools.configUrl', url);
+	        _superagent2.default.get(url).end(function (err, res) {
+	            console.log(res.text);
+	            localStorage.setItem('QzStringTools.configAdditional', res.body);
+	            dispatch({
+	                type: 'SET_ADDITIONAL_CONFIG',
+	                config: res.body || {}
+	            });
+	        });
+	    };
+	};
+
+/***/ }),
+/* 297 */
+/***/ (function(module, exports, __webpack_require__) {
+
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
@@ -52719,11 +52855,11 @@
 
 	var _redux = __webpack_require__(182);
 
-	var _reactMarkdown = __webpack_require__(296);
+	var _reactMarkdown = __webpack_require__(298);
 
 	var _reactMarkdown2 = _interopRequireDefault(_reactMarkdown);
 
-	var _index = __webpack_require__(322);
+	var _index = __webpack_require__(324);
 
 	var _AppTemplate = __webpack_require__(225);
 
@@ -52773,14 +52909,14 @@
 	exports.default = StateApp;
 
 /***/ }),
-/* 296 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var Parser = __webpack_require__(297).Parser;
-	var ReactRenderer = __webpack_require__(317);
+	var Parser = __webpack_require__(299).Parser;
+	var ReactRenderer = __webpack_require__(319);
 	var propTypes = __webpack_require__(205);
 
 	function ReactMarkdown(props) {
@@ -52852,7 +52988,7 @@
 
 
 /***/ }),
-/* 297 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -52869,14 +53005,14 @@
 	// console.log(renderer.render(parser.parse('Hello *world*')));
 
 	module.exports.version = '0.24.0'
-	module.exports.Node = __webpack_require__(298);
-	module.exports.Parser = __webpack_require__(299);
-	module.exports.HtmlRenderer = __webpack_require__(315);
-	module.exports.XmlRenderer = __webpack_require__(316);
+	module.exports.Node = __webpack_require__(300);
+	module.exports.Parser = __webpack_require__(301);
+	module.exports.HtmlRenderer = __webpack_require__(317);
+	module.exports.XmlRenderer = __webpack_require__(318);
 
 
 /***/ }),
-/* 298 */
+/* 300 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -53153,15 +53289,15 @@
 
 
 /***/ }),
-/* 299 */
+/* 301 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var Node = __webpack_require__(298);
-	var unescapeString = __webpack_require__(300).unescapeString;
-	var OPENTAG = __webpack_require__(300).OPENTAG;
-	var CLOSETAG = __webpack_require__(300).CLOSETAG;
+	var Node = __webpack_require__(300);
+	var unescapeString = __webpack_require__(302).unescapeString;
+	var OPENTAG = __webpack_require__(302).OPENTAG;
+	var CLOSETAG = __webpack_require__(302).CLOSETAG;
 
 	var CODE_INDENT = 4;
 
@@ -53172,7 +53308,7 @@
 	var C_SPACE = 32;
 	var C_OPEN_BRACKET = 91;
 
-	var InlineParser = __webpack_require__(311);
+	var InlineParser = __webpack_require__(313);
 
 	var reHtmlBlockOpen = [
 	   /./, // dummy for 0
@@ -54029,17 +54165,17 @@
 
 
 /***/ }),
-/* 300 */
+/* 302 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var encode = __webpack_require__(301);
-	var decode = __webpack_require__(302);
+	var encode = __webpack_require__(303);
+	var decode = __webpack_require__(304);
 
 	var C_BACKSLASH = 92;
 
-	var decodeHTML = __webpack_require__(303).decodeHTML;
+	var decodeHTML = __webpack_require__(305).decodeHTML;
 
 	var ENTITY = "&(?:#x[a-f0-9]{1,8}|#[0-9]{1,8}|[a-z][a-z0-9]{1,31});";
 
@@ -54138,7 +54274,7 @@
 
 
 /***/ }),
-/* 301 */
+/* 303 */
 /***/ (function(module, exports) {
 
 	
@@ -54242,7 +54378,7 @@
 
 
 /***/ }),
-/* 302 */
+/* 304 */
 /***/ (function(module, exports) {
 
 	
@@ -54370,11 +54506,11 @@
 
 
 /***/ }),
-/* 303 */
+/* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var encode = __webpack_require__(304),
-	    decode = __webpack_require__(307);
+	var encode = __webpack_require__(306),
+	    decode = __webpack_require__(309);
 
 	exports.decode = function(data, level){
 		return (!level || level <= 0 ? decode.XML : decode.HTML)(data);
@@ -54409,15 +54545,15 @@
 
 
 /***/ }),
-/* 304 */
+/* 306 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var inverseXML = getInverseObj(__webpack_require__(305)),
+	var inverseXML = getInverseObj(__webpack_require__(307)),
 	    xmlReplacer = getInverseReplacer(inverseXML);
 
 	exports.XML = getInverse(inverseXML, xmlReplacer);
 
-	var inverseHTML = getInverseObj(__webpack_require__(306)),
+	var inverseHTML = getInverseObj(__webpack_require__(308)),
 	    htmlReplacer = getInverseReplacer(inverseHTML);
 
 	exports.HTML = getInverse(inverseHTML, htmlReplacer);
@@ -54488,7 +54624,7 @@
 
 
 /***/ }),
-/* 305 */
+/* 307 */
 /***/ (function(module, exports) {
 
 	module.exports = {
@@ -54500,7 +54636,7 @@
 	};
 
 /***/ }),
-/* 306 */
+/* 308 */
 /***/ (function(module, exports) {
 
 	module.exports = {
@@ -56632,13 +56768,13 @@
 	};
 
 /***/ }),
-/* 307 */
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var entityMap = __webpack_require__(306),
-	    legacyMap = __webpack_require__(308),
-	    xmlMap    = __webpack_require__(305),
-	    decodeCodePoint = __webpack_require__(309);
+	var entityMap = __webpack_require__(308),
+	    legacyMap = __webpack_require__(310),
+	    xmlMap    = __webpack_require__(307),
+	    decodeCodePoint = __webpack_require__(311);
 
 	var decodeXMLStrict  = getStrictDecoder(xmlMap),
 	    decodeHTMLStrict = getStrictDecoder(entityMap);
@@ -56709,7 +56845,7 @@
 	};
 
 /***/ }),
-/* 308 */
+/* 310 */
 /***/ (function(module, exports) {
 
 	module.exports = {
@@ -56822,10 +56958,10 @@
 	};
 
 /***/ }),
-/* 309 */
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var decodeMap = __webpack_require__(310);
+	var decodeMap = __webpack_require__(312);
 
 	module.exports = decodeCodePoint;
 
@@ -56854,7 +56990,7 @@
 
 
 /***/ }),
-/* 310 */
+/* 312 */
 /***/ (function(module, exports) {
 
 	module.exports = {
@@ -56889,20 +57025,20 @@
 	};
 
 /***/ }),
-/* 311 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var Node = __webpack_require__(298);
-	var common = __webpack_require__(300);
-	var normalizeReference = __webpack_require__(312);
+	var Node = __webpack_require__(300);
+	var common = __webpack_require__(302);
+	var normalizeReference = __webpack_require__(314);
 
 	var normalizeURI = common.normalizeURI;
 	var unescapeString = common.unescapeString;
-	var fromCodePoint = __webpack_require__(313);
-	var decodeHTML = __webpack_require__(303).decodeHTML;
-	__webpack_require__(314); // Polyfill for String.prototype.repeat
+	var fromCodePoint = __webpack_require__(315);
+	var decodeHTML = __webpack_require__(305).decodeHTML;
+	__webpack_require__(316); // Polyfill for String.prototype.repeat
 
 	// Constants for character codes:
 
@@ -57826,7 +57962,7 @@
 
 
 /***/ }),
-/* 312 */
+/* 314 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -57874,7 +58010,7 @@
 
 
 /***/ }),
-/* 313 */
+/* 315 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -57939,7 +58075,7 @@
 
 
 /***/ }),
-/* 314 */
+/* 316 */
 /***/ (function(module, exports) {
 
 	/*! http://mths.be/repeat v0.2.0 by @mathias */
@@ -57995,12 +58131,12 @@
 
 
 /***/ }),
-/* 315 */
+/* 317 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var escapeXml = __webpack_require__(300).escapeXml;
+	var escapeXml = __webpack_require__(302).escapeXml;
 
 	// Helper function to produce an HTML tag.
 	var tag = function(name, attrs, selfclosing) {
@@ -58287,12 +58423,12 @@
 
 
 /***/ }),
-/* 316 */
+/* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var escapeXml = __webpack_require__(300).escapeXml;
+	var escapeXml = __webpack_require__(302).escapeXml;
 
 	// Helper function to produce an XML tag.
 	var tag = function(name, attrs, selfclosing) {
@@ -58470,16 +58606,16 @@
 
 
 /***/ }),
-/* 317 */
+/* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var assign = __webpack_require__(318);
-	var isPlainObject = __webpack_require__(319);
-	var xssFilters = __webpack_require__(320);
-	var pascalCase = __webpack_require__(321);
+	var assign = __webpack_require__(320);
+	var isPlainObject = __webpack_require__(321);
+	var xssFilters = __webpack_require__(322);
+	var pascalCase = __webpack_require__(323);
 
 	var typeAliases = {
 	    blockquote: 'block_quote',
@@ -58884,7 +59020,7 @@
 
 
 /***/ }),
-/* 318 */
+/* 320 */
 /***/ (function(module, exports) {
 
 	/**
@@ -59527,7 +59663,7 @@
 
 
 /***/ }),
-/* 319 */
+/* 321 */
 /***/ (function(module, exports) {
 
 	/**
@@ -59672,7 +59808,7 @@
 
 
 /***/ }),
-/* 320 */
+/* 322 */
 /***/ (function(module, exports) {
 
 	/*
@@ -60777,7 +60913,7 @@
 
 
 /***/ }),
-/* 321 */
+/* 323 */
 /***/ (function(module, exports) {
 
 	/*!
@@ -60804,7 +60940,7 @@
 
 
 /***/ }),
-/* 322 */
+/* 324 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60829,7 +60965,7 @@
 	};
 
 /***/ }),
-/* 323 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60837,9 +60973,9 @@
 	var _require = __webpack_require__(182),
 	    combineReducers = _require.combineReducers;
 
-	var config = __webpack_require__(324);
-	var filter = __webpack_require__(325);
-	var request = __webpack_require__(326);
+	var config = __webpack_require__(326);
+	var filter = __webpack_require__(327);
+	var request = __webpack_require__(328);
 
 	var app = combineReducers({
 	    config: config,
@@ -60850,14 +60986,14 @@
 	module.exports = app;
 
 /***/ }),
-/* 324 */
+/* 326 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	var defaultConfig = __webpack_require__(231);
+	var defaultConfig = __webpack_require__(231).default;
 	var config = function config() {
 	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 	    var action = arguments[1];
@@ -60869,8 +61005,12 @@
 	            });
 	        case 'SET_ADDITIONAL_CONFIG':
 	            return _extends({}, state, {
-	                "handler": _extends({}, defaultConfig.handler, action.config.handler),
-	                "command": _extends({}, defaultConfig.command, action.config.command)
+	                "handler": defaultConfig.handler.concat(action.config.handler).filter(function (n) {
+	                    return n != undefined;
+	                }),
+	                "command": defaultConfig.command.concat(action.config.command).filter(function (n) {
+	                    return n != undefined;
+	                })
 	            });
 	        default:
 	            return state;
@@ -60880,7 +61020,7 @@
 	module.exports = config;
 
 /***/ }),
-/* 325 */
+/* 327 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -60908,7 +61048,7 @@
 	module.exports = obj;
 
 /***/ }),
-/* 326 */
+/* 328 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -60930,140 +61070,6 @@
 	};
 
 	module.exports = obj;
-
-/***/ }),
-/* 327 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var CommandList = function CommandList(_ref) {
-	    var command = _ref.command;
-
-	    return _react2.default.createElement(
-	        "div",
-	        { className: "box box-primary" },
-	        _react2.default.createElement(
-	            "div",
-	            { className: "box-body" },
-	            _react2.default.createElement(
-	                "table",
-	                { className: "table table-condensed table-striped" },
-	                _react2.default.createElement(
-	                    "tbody",
-	                    null,
-	                    _react2.default.createElement(
-	                        "tr",
-	                        null,
-	                        _react2.default.createElement(
-	                            "th",
-	                            null,
-	                            "Code"
-	                        ),
-	                        _react2.default.createElement(
-	                            "td",
-	                            null,
-	                            command.code
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        "tr",
-	                        null,
-	                        _react2.default.createElement(
-	                            "th",
-	                            null,
-	                            "Name (Input)"
-	                        ),
-	                        _react2.default.createElement(
-	                            "td",
-	                            null,
-	                            command.name.input
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        "tr",
-	                        null,
-	                        _react2.default.createElement(
-	                            "th",
-	                            null,
-	                            "Name (Output)"
-	                        ),
-	                        _react2.default.createElement(
-	                            "td",
-	                            null,
-	                            command.name.output
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        "tr",
-	                        null,
-	                        _react2.default.createElement(
-	                            "th",
-	                            null,
-	                            "Handler (Input)"
-	                        ),
-	                        _react2.default.createElement(
-	                            "td",
-	                            null,
-	                            JSON.stringify(command.handlers.input).replace(/,/g, ", ").replace(/\[/g, "[ ").replace(/\]/g, "] ")
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        "tr",
-	                        null,
-	                        _react2.default.createElement(
-	                            "th",
-	                            null,
-	                            "Handler (Output)"
-	                        ),
-	                        _react2.default.createElement(
-	                            "td",
-	                            null,
-	                            JSON.stringify(command.handlers.output).replace(/,/g, ", ").replace(/\[/g, "[ ").replace(/\]/g, "] ")
-	                        )
-	                    )
-	                )
-	            )
-	        )
-	    );
-	};
-
-	exports.default = CommandList;
-
-/***/ }),
-/* 328 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _superagent = __webpack_require__(219);
-
-	var _superagent2 = _interopRequireDefault(_superagent);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var setConfigUrl = exports.setConfigUrl = function (url) {
-	    return function (dispatch, getState) {
-	        localStorage.setItem('QzStringTools.configUrl', action.url);
-	        _superagent2.default.get(url).end(function (err, res) {
-	            localStorage.setItem('QzStringTools.configAdditional', res.body);
-	            dispatch({
-	                type: 'SET_ADDITIONAL_CONFIG',
-	                config: res.body
-	            });
-	        });
-	    };
-	};
 
 /***/ })
 /******/ ]);
