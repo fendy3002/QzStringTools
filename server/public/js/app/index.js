@@ -13,7 +13,9 @@ import defaultConfig from '../../../../src/config.js';
 
 var renderPage = function(initialState){
     var configUrl = localStorage.getItem("QzStringTools.configUrl");
-    var additionalConfig = localStorage.getItem("QzStringTools.configAdditional") || {};
+    var additionalConfig = localStorage.getItem("QzStringTools.configAdditional") || '';
+    additionalConfig = JSON.parse(additionalConfig) || {};
+
     var state = {
         config: {
             "handler": defaultConfig.handler.concat(additionalConfig.handler)

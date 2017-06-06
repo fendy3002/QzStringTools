@@ -16,8 +16,8 @@
 				"output": "asterisk"
 			},
 			"handlers": {
-				"input" : ['_newline', ['aspace', 'zspace']],
-				"output" : [['azasterisk'], ['_newline', 'acomma']]
+				"input" : ["_newline", ["aspace", "zspace"]],
+				"output" : [["azasterisk"], ["_newline", "acomma"]]
 			}
 		}
 	]

@@ -3,6 +3,7 @@ var app = express();
 import fs from 'fs';
 
 app.use('/public', express.static(__dirname + '/public'));
+app.use('/src', express.static(__dirname + '/../src'));
 
 var serveSPA = function (req, res) {
     fs.readFile('server/views/index.html',function (err, data){

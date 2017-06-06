@@ -3,13 +3,23 @@ import sa from 'superagent';
 var setConfigUrl = exports.setConfigUrl = function(url){
     return (dispatch, getState) => {
     	localStorage.setItem('QzStringTools.configUrl', url);
-        sa.get(url).end((err, res) => {
-    		localStorage.setItem('QzStringTools.configAdditional', res.body);
+        if(url){
+            sa.get(url).end((err, res) => {
+                var additionalConfig = JSON.parse(res.text);
+                localStorage.setItem('QzStringTools.configAdditional', res.text);
+                dispatch({
+                    type: 'SET_ADDITIONAL_CONFIG',
+                    config: additionalConfig || {}
+                });
+            });
+        }
+        else{
+            localStorage.setItem('QzStringTools.configAdditional', null);
             dispatch({
                 type: 'SET_ADDITIONAL_CONFIG',
-                config: res.body || {}
+                config: {}
             });
-        });
+        }
     };
 };
 

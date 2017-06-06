@@ -88,7 +88,9 @@
 
 	var renderPage = function renderPage(initialState) {
 	    var configUrl = localStorage.getItem("QzStringTools.configUrl");
-	    var additionalConfig = localStorage.getItem("QzStringTools.configAdditional") || {};
+	    var additionalConfig = localStorage.getItem("QzStringTools.configAdditional") || '';
+	    additionalConfig = JSON.parse(additionalConfig) || {};
+
 	    var state = {
 	        config: {
 	            "handler": _config2.default.handler.concat(additionalConfig.handler).filter(function (n) {
@@ -43404,14 +43406,14 @@
 			"code": "a-dquote",
 			"name": "Double quote surround",
 			"type": "surround",
-			"start": '"',
-			"end": ''
+			"start": "\"",
+			"end": ""
 		}, {
 			"code": "z-dquote",
 			"name": "Double quote surround",
 			"type": "surround",
-			"start": '',
-			"end": '"'
+			"start": "",
+			"end": "\""
 		}, {
 			"code": "aspace",
 			"name": "Space delimiter",
@@ -43486,8 +43488,8 @@
 				"output": "single quote comma newline"
 			},
 			"handlers": {
-				"input": ['_newline', ['aspace', 'zspace']],
-				"output": [['a-squote', 'z-squote'], ['_newline', 'acomma']]
+				"input": ["_newline", ["aspace", "zspace"]],
+				"output": [["a-squote", "z-squote"], ["_newline", "acomma"]]
 			}
 		}, {
 			"code": "sql-drop-table",
@@ -43496,8 +43498,8 @@
 				"output": "drop table syntax"
 			},
 			"handlers": {
-				"input": ['_newline'],
-				"output": [['asql-drop-table', 'zsemicolon'], '_newline']
+				"input": ["_newline"],
+				"output": [["asql-drop-table", "zsemicolon"], "_newline"]
 			}
 		}, {
 			"code": "tabbed-sql-select-union-all",
@@ -43506,8 +43508,8 @@
 				"output": "sql union all"
 			},
 			"handlers": {
-				"input": ['_newline', '_tab', ['aspace', 'zspace']],
-				"output": [['a-squote', 'z-squote'], ['_comma', 'zspace'], 'asql-select', ['_newline', 'asql-unionall', 'aspace']]
+				"input": ["_newline", "_tab", ["aspace", "zspace"]],
+				"output": [["a-squote", "z-squote"], ["_comma", "zspace"], "asql-select", ["_newline", "asql-unionall", "aspace"]]
 			}
 		}, {
 			"code": "php-array-to-object",
@@ -43516,8 +43518,8 @@
 				"output": "PHP object"
 			},
 			"handlers": {
-				"input": ['_newline', ['zcomma', 'atab'], '_darrow', ['zspace', 'aspace'], ['a-dquote', 'z-dquote']],
-				"output": [['_equal', 'aspace', 'zspace'], ['atab', 'atab', 'aphp-object', 'zsemicolon'], '_newline']
+				"input": ["_newline", ["zcomma", "atab"], "_darrow", ["zspace", "aspace"], ["a-dquote", "z-dquote"]],
+				"output": [["_equal", "aspace", "zspace"], ["atab", "atab", "aphp-object", "zsemicolon"], "_newline"]
 			}
 		}, {
 			"code": "php-array-to-json",
@@ -43526,8 +43528,8 @@
 				"output": "Json"
 			},
 			"handlers": {
-				"input": [['acomma', '_newline'], 'atab', '_darrow', ['zspace', 'aspace']],
-				"output": [['_colon', 'aspace', 'zspace'], ['atab', 'atab'], ['_newline', 'acomma']]
+				"input": [["acomma", "_newline"], "atab", "_darrow", ["zspace", "aspace"]],
+				"output": [["_colon", "aspace", "zspace"], ["atab", "atab"], ["_newline", "acomma"]]
 			}
 		}, {
 			"code": "php-object-to-json",
@@ -43536,8 +43538,8 @@
 				"output": "Json"
 			},
 			"handlers": {
-				"input": ['_newline', 'zsemicolon', 'atab', 'aphp-object', '_equal', ['zspace', 'aspace']],
-				"output": [['a-dquote', 'z-dquote', 0], ['_colon', 'aspace', 'zspace'], ['atab', 'atab'], ['_newline', 'acomma']]
+				"input": ["_newline", "zsemicolon", "atab", "aphp-object", "_equal", ["zspace", "aspace"]],
+				"output": [["a-dquote", "z-dquote", 0], ["_colon", "aspace", "zspace"], ["atab", "atab"], ["_newline", "acomma"]]
 			}
 		}]
 	};
@@ -52826,14 +52828,22 @@
 	var setConfigUrl = exports.setConfigUrl = function (url) {
 	    return function (dispatch, getState) {
 	        localStorage.setItem('QzStringTools.configUrl', url);
-	        _superagent2.default.get(url).end(function (err, res) {
-	            console.log(res.text);
-	            localStorage.setItem('QzStringTools.configAdditional', res.body);
+	        if (url) {
+	            _superagent2.default.get(url).end(function (err, res) {
+	                var additionalConfig = JSON.parse(res.text);
+	                localStorage.setItem('QzStringTools.configAdditional', res.text);
+	                dispatch({
+	                    type: 'SET_ADDITIONAL_CONFIG',
+	                    config: additionalConfig || {}
+	                });
+	            });
+	        } else {
+	            localStorage.setItem('QzStringTools.configAdditional', null);
 	            dispatch({
 	                type: 'SET_ADDITIONAL_CONFIG',
-	                config: res.body || {}
+	                config: {}
 	            });
-	        });
+	        }
 	    };
 	};
 
