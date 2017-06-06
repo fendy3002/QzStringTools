@@ -12,14 +12,23 @@ import reducer from './reducers';
 import defaultConfig from '../../../../src/config.js';
 
 var renderPage = function(initialState){
+    var configUrl = localStorage.getItem("QzStringTools.configUrl");
+    var additionalConfig = localStorage.getItem("QzStringTools.configAdditional") || {};
     var state = {
-        config: defaultConfig,
+        config: {
+            "handler": defaultConfig.handler.concat(additionalConfig.handler)
+                .filter(n => n != undefined),
+            "command": defaultConfig.command.concat(additionalConfig.command)
+                .filter(n => n != undefined),
+            "configUrl": configUrl
+        },
         filter: {
             selectedCommand: defaultConfig.command[0],
             searchCommandKeyword: "",
             convertedInput: ""
         }
     };
+    
     var store = createStore(reducer,
         state,
         applyMiddleware(thunk));

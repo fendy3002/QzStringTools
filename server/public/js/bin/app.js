@@ -87,14 +87,25 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var renderPage = function renderPage(initialState) {
+	    var configUrl = localStorage.getItem("QzStringTools.configUrl");
+	    var additionalConfig = localStorage.getItem("QzStringTools.configAdditional") || {};
 	    var state = {
-	        config: _config2.default,
+	        config: {
+	            "handler": _config2.default.handler.concat(additionalConfig.handler).filter(function (n) {
+	                return n != undefined;
+	            }),
+	            "command": _config2.default.command.concat(additionalConfig.command).filter(function (n) {
+	                return n != undefined;
+	            }),
+	            "configUrl": configUrl
+	        },
 	        filter: {
 	            selectedCommand: _config2.default.command[0],
 	            searchCommandKeyword: "",
 	            convertedInput: ""
 	        }
 	    };
+
 	    var store = (0, _redux.createStore)(_reducers2.default, state, (0, _redux.applyMiddleware)(_reduxThunk2.default));
 	    (0, _reactDom.render)(_react2.default.createElement(
 	        _reactRedux.Provider,
@@ -52391,6 +52402,8 @@
 
 	var _ConfigList2 = _interopRequireDefault(_ConfigList);
 
+	var _index = __webpack_require__(328);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var mapStateToProps = function mapStateToProps(state) {
@@ -52400,7 +52413,9 @@
 	};
 
 	var mapDispatchToProps = function mapDispatchToProps(dispatch, getState) {
-	    return {};
+	    return {
+	        setConfigUrl: (0, _redux.bindActionCreators)(_index.setConfigUrl, dispatch)
+	    };
 	};
 	var StateConfigList = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_ConfigList2.default);
 
@@ -52424,6 +52439,10 @@
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
+	var _Command = __webpack_require__(327);
+
+	var _Command2 = _interopRequireDefault(_Command);
+
 	var _index = __webpack_require__(230);
 
 	var _index2 = _interopRequireDefault(_index);
@@ -52431,7 +52450,8 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var ConfigList = function ConfigList(_ref) {
-	    var config = _ref.config;
+	    var config = _ref.config,
+	        setConfigUrl = _ref.setConfigUrl;
 
 	    var delimiterTemplate = function delimiterTemplate(cfg) {
 	        return _react2.default.createElement(
@@ -52558,93 +52578,9 @@
 	    var configsDomSurround = _lodash2.default.map(surroundHandler, surroundTemplate);
 
 	    var commandDom = _lodash2.default.map(config.command, function (k) {
-	        return _react2.default.createElement(
-	            'div',
-	            { className: 'box box-primary' },
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'box-body' },
-	                _react2.default.createElement(
-	                    'table',
-	                    { className: 'table table-condensed table-striped' },
-	                    _react2.default.createElement(
-	                        'tbody',
-	                        null,
-	                        _react2.default.createElement(
-	                            'tr',
-	                            null,
-	                            _react2.default.createElement(
-	                                'th',
-	                                null,
-	                                'Code'
-	                            ),
-	                            _react2.default.createElement(
-	                                'td',
-	                                null,
-	                                k.code
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'tr',
-	                            null,
-	                            _react2.default.createElement(
-	                                'th',
-	                                null,
-	                                'Name (Input)'
-	                            ),
-	                            _react2.default.createElement(
-	                                'td',
-	                                null,
-	                                k.name.input
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'tr',
-	                            null,
-	                            _react2.default.createElement(
-	                                'th',
-	                                null,
-	                                'Name (Output)'
-	                            ),
-	                            _react2.default.createElement(
-	                                'td',
-	                                null,
-	                                k.name.output
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'tr',
-	                            null,
-	                            _react2.default.createElement(
-	                                'th',
-	                                null,
-	                                'Handler (Input)'
-	                            ),
-	                            _react2.default.createElement(
-	                                'td',
-	                                null,
-	                                JSON.stringify(k.handlers.input).replace(/,/g, ", ").replace(/\[/g, "[ ").replace(/\]/g, "] ")
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'tr',
-	                            null,
-	                            _react2.default.createElement(
-	                                'th',
-	                                null,
-	                                'Handler (Output)'
-	                            ),
-	                            _react2.default.createElement(
-	                                'td',
-	                                null,
-	                                JSON.stringify(k.handlers.output).replace(/,/g, ", ").replace(/\[/g, "[ ").replace(/\]/g, "] ")
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
+	        return _react2.default.createElement(_Command2.default, { command: k });
 	    });
+	    var additionalConfigUrlDom = null;
 	    return _react2.default.createElement(
 	        'div',
 	        null,
@@ -52664,6 +52600,56 @@
 	        _react2.default.createElement(
 	            'section',
 	            { className: 'content' },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'box box-primary' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'box-header' },
+	                    _react2.default.createElement(
+	                        'h3',
+	                        null,
+	                        'Additional config'
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'box-body' },
+	                    _react2.default.createElement(
+	                        'form',
+	                        { className: 'form' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'col-sm-6' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'form-group' },
+	                                _react2.default.createElement(
+	                                    'label',
+	                                    { className: 'control-label' },
+	                                    'Url'
+	                                ),
+	                                _react2.default.createElement('input', { type: 'text', className: 'form-control',
+	                                    ref: function ref(node) {
+	                                        return additionalConfigUrlDom = node;
+	                                    } })
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'form-group text-right' },
+	                                _react2.default.createElement(
+	                                    'button',
+	                                    { type: 'button', className: 'btn btn-flat btn-primary',
+	                                        onclick: function onclick() {
+	                                            return setConfigUrl(additionalConfigUrlDom.value);
+	                                        } },
+	                                    'Update'
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            ),
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'box box-solid' },
@@ -60944,6 +60930,140 @@
 	};
 
 	module.exports = obj;
+
+/***/ }),
+/* 327 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var CommandList = function CommandList(_ref) {
+	    var command = _ref.command;
+
+	    return _react2.default.createElement(
+	        "div",
+	        { className: "box box-primary" },
+	        _react2.default.createElement(
+	            "div",
+	            { className: "box-body" },
+	            _react2.default.createElement(
+	                "table",
+	                { className: "table table-condensed table-striped" },
+	                _react2.default.createElement(
+	                    "tbody",
+	                    null,
+	                    _react2.default.createElement(
+	                        "tr",
+	                        null,
+	                        _react2.default.createElement(
+	                            "th",
+	                            null,
+	                            "Code"
+	                        ),
+	                        _react2.default.createElement(
+	                            "td",
+	                            null,
+	                            command.code
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "tr",
+	                        null,
+	                        _react2.default.createElement(
+	                            "th",
+	                            null,
+	                            "Name (Input)"
+	                        ),
+	                        _react2.default.createElement(
+	                            "td",
+	                            null,
+	                            command.name.input
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "tr",
+	                        null,
+	                        _react2.default.createElement(
+	                            "th",
+	                            null,
+	                            "Name (Output)"
+	                        ),
+	                        _react2.default.createElement(
+	                            "td",
+	                            null,
+	                            command.name.output
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "tr",
+	                        null,
+	                        _react2.default.createElement(
+	                            "th",
+	                            null,
+	                            "Handler (Input)"
+	                        ),
+	                        _react2.default.createElement(
+	                            "td",
+	                            null,
+	                            JSON.stringify(command.handlers.input).replace(/,/g, ", ").replace(/\[/g, "[ ").replace(/\]/g, "] ")
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "tr",
+	                        null,
+	                        _react2.default.createElement(
+	                            "th",
+	                            null,
+	                            "Handler (Output)"
+	                        ),
+	                        _react2.default.createElement(
+	                            "td",
+	                            null,
+	                            JSON.stringify(command.handlers.output).replace(/,/g, ", ").replace(/\[/g, "[ ").replace(/\]/g, "] ")
+	                        )
+	                    )
+	                )
+	            )
+	        )
+	    );
+	};
+
+	exports.default = CommandList;
+
+/***/ }),
+/* 328 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _superagent = __webpack_require__(219);
+
+	var _superagent2 = _interopRequireDefault(_superagent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var setConfigUrl = exports.setConfigUrl = function (url) {
+	    return function (dispatch, getState) {
+	        localStorage.setItem('QzStringTools.configUrl', action.url);
+	        _superagent2.default.get(url).end(function (err, res) {
+	            localStorage.setItem('QzStringTools.configAdditional', res.body);
+	            dispatch({
+	                type: 'SET_ADDITIONAL_CONFIG',
+	                config: res.body
+	            });
+	        });
+	    };
+	};
 
 /***/ })
 /******/ ]);
