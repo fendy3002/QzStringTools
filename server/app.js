@@ -3,7 +3,6 @@ var app = express();
 import fs from 'fs';
 
 app.use('/public', express.static(__dirname + '/public'));
-app.use('/src', express.static(__dirname + '/../src'));
 
 var serveSPA = function (req, res) {
     fs.readFile('server/views/index.html',function (err, data){
@@ -30,7 +29,6 @@ app.get('/readme', function(req, res) {
         res.end();
     });
 });
-
 
 app.listen(3000, function () {
   console.log('String tools app listening on port 3000!')

@@ -1,6 +1,6 @@
 {
   "name": "@fendy3002/string-tools",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -8,7 +8,8 @@
     "start": "./node_modules/.bin/babel-node server/app.js",
     "win-start": "./node_modules/.bin/babel-node.cmd server/app.js",
 
-    "prepublish": "./node_modules/babel-cli/bin/babel.js src --out-dir dist"
+    "prepublish": "./node_modules/babel-cli/bin/babel.js src --out-dir dist",
+    "win-prepublish": "./node_modules/.bin/babel.cmd src --out-dir dist"
   },
   "repository": {
     "type": "git",

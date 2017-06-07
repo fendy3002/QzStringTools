@@ -81,14 +81,14 @@ exports.default = {
 		"code": "a-dquote",
 		"name": "Double quote surround",
 		"type": "surround",
-		"start": '"',
-		"end": ''
+		"start": "\"",
+		"end": ""
 	}, {
 		"code": "z-dquote",
 		"name": "Double quote surround",
 		"type": "surround",
-		"start": '',
-		"end": '"'
+		"start": "",
+		"end": "\""
 	}, {
 		"code": "aspace",
 		"name": "Space delimiter",
@@ -163,8 +163,8 @@ exports.default = {
 			"output": "single quote comma newline"
 		},
 		"handlers": {
-			"input": ['_newline', ['aspace', 'zspace']],
-			"output": [['a-squote', 'z-squote'], ['_newline', 'acomma']]
+			"input": ["_newline", ["aspace", "zspace"]],
+			"output": [["a-squote", "z-squote"], ["_newline", "acomma"]]
 		}
 	}, {
 		"code": "sql-drop-table",
@@ -173,8 +173,8 @@ exports.default = {
 			"output": "drop table syntax"
 		},
 		"handlers": {
-			"input": ['_newline'],
-			"output": [['asql-drop-table', 'zsemicolon'], '_newline']
+			"input": ["_newline"],
+			"output": [["asql-drop-table", "zsemicolon"], "_newline"]
 		}
 	}, {
 		"code": "tabbed-sql-select-union-all",
@@ -183,8 +183,8 @@ exports.default = {
 			"output": "sql union all"
 		},
 		"handlers": {
-			"input": ['_newline', '_tab', ['aspace', 'zspace']],
-			"output": [['a-squote', 'z-squote'], ['_comma', 'zspace'], 'asql-select', ['_newline', 'asql-unionall', 'aspace']]
+			"input": ["_newline", "_tab", ["aspace", "zspace"]],
+			"output": [["a-squote", "z-squote"], ["_comma", "zspace"], "asql-select", ["_newline", "asql-unionall", "aspace"]]
 		}
 	}, {
 		"code": "php-array-to-object",
@@ -193,8 +193,8 @@ exports.default = {
 			"output": "PHP object"
 		},
 		"handlers": {
-			"input": ['_newline', ['zcomma', 'atab'], '_darrow', ['zspace', 'aspace'], ['a-dquote', 'z-dquote']],
-			"output": [['_equal', 'aspace', 'zspace'], ['atab', 'atab', 'aphp-object', 'zsemicolon'], '_newline']
+			"input": ["_newline", ["zcomma", "atab"], "_darrow", ["zspace", "aspace"], ["a-dquote", "z-dquote"]],
+			"output": [["_equal", "aspace", "zspace"], ["atab", "atab", "aphp-object", "zsemicolon"], "_newline"]
 		}
 	}, {
 		"code": "php-array-to-json",
@@ -203,8 +203,8 @@ exports.default = {
 			"output": "Json"
 		},
 		"handlers": {
-			"input": [['acomma', '_newline'], 'atab', '_darrow', ['zspace', 'aspace']],
-			"output": [['_colon', 'aspace', 'zspace'], ['atab', 'atab'], ['_newline', 'acomma']]
+			"input": [["acomma", "_newline"], "atab", "_darrow", ["zspace", "aspace"]],
+			"output": [["_colon", "aspace", "zspace"], ["atab", "atab"], ["_newline", "acomma"]]
 		}
 	}, {
 		"code": "php-object-to-json",
@@ -213,8 +213,8 @@ exports.default = {
 			"output": "Json"
 		},
 		"handlers": {
-			"input": ['_newline', 'zsemicolon', 'atab', 'aphp-object', '_equal', ['zspace', 'aspace']],
-			"output": [['a-dquote', 'z-dquote', 0], ['_colon', 'aspace', 'zspace'], ['atab', 'atab'], ['_newline', 'acomma']]
+			"input": ["_newline", "zsemicolon", "atab", "aphp-object", "_equal", ["zspace", "aspace"]],
+			"output": [["a-dquote", "z-dquote", 0], ["_colon", "aspace", "zspace"], ["atab", "atab"], ["_newline", "acomma"]]
 		}
 	}]
 };
