@@ -124,7 +124,7 @@
 	        adminLteScript.src = "https://adminlte.io/themes/AdminLTE/dist/js/adminlte.min.js";
 	        adminLteScript.origin = "anonymous";
 	        document.getElementsByTagName('head')[0].appendChild(adminLteScript);
-	    }, 1000);
+	    }, 500);
 	};
 	renderPage([]);
 

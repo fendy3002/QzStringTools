@@ -51,6 +51,6 @@ var renderPage = function(initialState){
         adminLteScript.origin = "anonymous";
         document.getElementsByTagName('head')[0].appendChild(adminLteScript);
 
-    }, 1000);
+    }, 500);
 };
 renderPage([]);
