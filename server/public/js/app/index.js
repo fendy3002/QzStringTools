@@ -47,7 +47,7 @@ var renderPage = function(initialState){
 
     setTimeout(() => {
         var adminLteScript = document.createElement('script');
-        adminLteScript.src = "https://adminlte.io/themes/AdminLTE/dist/js/adminlte.min.js";
+        adminLteScript.src = "https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.11/js/app.min.js";
         adminLteScript.origin = "anonymous";
         document.getElementsByTagName('head')[0].appendChild(adminLteScript);
 

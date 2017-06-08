@@ -121,7 +121,7 @@
 
 	    setTimeout(function () {
 	        var adminLteScript = document.createElement('script');
-	        adminLteScript.src = "https://adminlte.io/themes/AdminLTE/dist/js/adminlte.min.js";
+	        adminLteScript.src = "https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.11/js/app.min.js";
 	        adminLteScript.origin = "anonymous";
 	        document.getElementsByTagName('head')[0].appendChild(adminLteScript);
 	    }, 500);
@@ -43381,12 +43381,15 @@
 	            { className: "navbar navbar-static-top" },
 	            _react2.default.createElement(
 	                "a",
-	                { href: "#", className: "sidebar-toggle", "data-toggle": "push-menu", role: "button" },
+	                { href: "#", className: "sidebar-toggle", "data-toggle": "offcanvas", role: "button" },
 	                _react2.default.createElement(
 	                    "span",
 	                    { className: "sr-only" },
 	                    "Toggle navigation"
-	                )
+	                ),
+	                _react2.default.createElement("span", { className: "icon-bar" }),
+	                _react2.default.createElement("span", { className: "icon-bar" }),
+	                _react2.default.createElement("span", { className: "icon-bar" })
 	            )
 	        )
 	    );
