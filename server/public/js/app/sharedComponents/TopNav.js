@@ -6,7 +6,9 @@ var TopNav = ({host}) => <header className="main-header">
         <span className="logo-lg"><b>Qz</b>StringTools</span>
     </a>
     <nav className="navbar navbar-static-top">
-
+    	<a href="#" className="sidebar-toggle" data-toggle="pushMenu" role="button">
+        	<span className="sr-only">Toggle navigation</span>
+      	</a>
     </nav>
 </header>;
 

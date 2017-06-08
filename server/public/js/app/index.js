@@ -14,7 +14,11 @@ import defaultConfig from '../../../../src/config.js';
 var renderPage = function(initialState){
     var configUrl = localStorage.getItem("QzStringTools.configUrl");
     var additionalConfig = localStorage.getItem("QzStringTools.configAdditional") || '';
-    additionalConfig = JSON.parse(additionalConfig) || {};
+    try{
+        additionalConfig = JSON.parse(additionalConfig);
+    }catch(err){
+        additionalConfig = {};
+    }
 
     var state = {
         config: {
@@ -40,5 +44,13 @@ var renderPage = function(initialState){
         </Provider>,
         document.getElementById('content')
     );
+
+    setTimeout(() => {
+        var adminLteScript = document.createElement('script');
+        adminLteScript.src = "https://adminlte.io/themes/AdminLTE/dist/js/adminlte.min.js";
+        adminLteScript.origin = "anonymous";
+        document.getElementsByTagName('head')[0].appendChild(adminLteScript);
+
+    }, 1000);
 };
 renderPage([]);
